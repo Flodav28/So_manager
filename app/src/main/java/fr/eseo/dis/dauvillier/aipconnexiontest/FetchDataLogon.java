@@ -107,4 +107,8 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
 
     }
 
+    public List <String> getValue(){
+        return this.resultValues;
+    }
+
 }
