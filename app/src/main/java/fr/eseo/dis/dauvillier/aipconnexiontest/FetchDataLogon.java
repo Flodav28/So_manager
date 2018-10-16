@@ -26,6 +26,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
     private  Context context;
     private List<String> values;
     private List<List<String>> valuesResponsesL;
+    private List<String> resultValues;
     private  static final String urlFirst  ="https://192.168.4.248/pfe/webservice.php?";
 
     public FetchDataLogon(Context context,String apiName,List values) {
@@ -37,6 +38,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
         this.apiName=apiName;
         this.valuesResponsesL=getVariableList(this.apiName);
         this.url=urlFirst+addVariableName(this.valuesResponsesL,values);
+
     }
 
 
@@ -86,7 +88,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
         LogActivity.getData(this.data);
 
     }
-    public List<String> getResultRequest(List<List<String>> variableNames){
+    public void getResultRequest(List<List<String>> variableNames){
         List <String> responseValues=null ;
         List<String> variableName =variableNames.get(1);
         JSONObject jsonObj;
@@ -101,7 +103,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return responseValues;
+        this.resultValues= responseValues;
 
     }
 
