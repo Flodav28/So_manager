@@ -30,9 +30,7 @@ public class TrustManager {
     }
 
     public void setSLLContext(SSLContext sslcontext) {
-        System.out.println("********************DANS SSL CONTEXT*************************$");
         this.sslcontext = sslcontext;
-        System.out.println("*************This.sslcontext: "+this.sslcontext+" **************************$");
 
     }
 

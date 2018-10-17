@@ -22,22 +22,23 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
 
-    private String data, url,apiName;
+    public String data, url,apiName;
+    private MasterActivity masterActivity;
     private  Context context;
     private List<String> values;
-    private List<List<String>> valuesResponsesL;
-    private List<String> resultValues;
+    private List<List<String>> valuesResponsesDico;
+    private List<String> reponseActivite=null;
     private  static final String urlFirst  ="https://192.168.4.248/pfe/webservice.php?";
 
-    public FetchDataLogon(Context context,String apiName,List values) {
+    public FetchDataLogon(MasterActivity masterActivity,String apiName,List values) {
         Log.d("LogActivity","vdvds")       ;
-
-        this.context = context;
+        this.context = masterActivity.getApplicationContext();
         this.values=values;
         this.data="";
+        this.masterActivity=masterActivity;
         this.apiName=apiName;
-        this.valuesResponsesL=getVariableList(this.apiName);
-        this.url=urlFirst+addVariableName(this.valuesResponsesL,values);
+        this.valuesResponsesDico=getVariableList(this.apiName);
+        this.url=urlFirst+addVariableName(this.valuesResponsesDico,values);
 
     }
 
@@ -73,7 +74,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
                  beforeData= beforeData +line;
             }
             this.data=beforeData;
-
+            //getResultRequest(this.valuesResponsesDico);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -84,8 +85,8 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        getResultRequest(this.valuesResponsesL);
-        LogActivity.getData(this.data);
+        getResultRequest(valuesResponsesDico);
+        masterActivity.getResponse(this.reponseActivite);
 
     }
     public void getResultRequest(List<List<String>> variableNames){
@@ -97,18 +98,33 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
             jsonObj = new JSONObject(data);
             for(int i=0;i<variableName.size();i++){
                 responseValues.add((String)jsonObj.get(variableName.get(i)));
-               // System.out.println("reponse@@@@@@@@@@@:"+variableName.get(i)+" : "+jsonObj.get(variableName.get(i)));
             }
+            this.reponseActivite=responseValues;
+     /*       switch (this.apiName)
+            {
+                case "LIPRJ":
+                    System.out.println("Ouch !");
+                    break;
+                case 10:
+                    System.out.println("Vous avez juste la moyenne.");
+                    break;
+                case 20:
+                    System.out.println("Parfait !");
+                    break;
+                default:
+                    System.out.println("Il faut davantage travailler.");
+            }*/
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        this.resultValues= responseValues;
 
     }
 
-    public List <String> getValue(){
-        return this.resultValues;
-    }
+
+
+
+
 
 }
