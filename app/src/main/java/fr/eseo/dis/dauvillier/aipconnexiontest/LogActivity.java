@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -19,10 +20,11 @@ public class LogActivity extends AppCompatActivity {
 
     //   Button  button = findViewById(R.id.button);
     //    TextView  textView = findViewById(R.id.textView);
+    private static final String apiName = "LOGON";
+
     private Button btnConnexion;
-    private String q;
     private String user;
-    private String pass;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +42,24 @@ public class LogActivity extends AppCompatActivity {
     }
 
     public void onClickBtn(View view){
-        q="LOGON";
-        user="aubinseb";
-        pass="Lsm5hs51s9ks";
+        EditText userValue = (EditText) findViewById(R.id.username);
+        user = userValue.getText().toString();
+        EditText passwordValue = (EditText) findViewById(R.id.password);
+        password = passwordValue.getText().toString();
+
         List<String> values=new ArrayList<String>();
-        values.add(q);
+        values.add(apiName);
         values.add(user);
-        values.add(pass);
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this.getApplicationContext(),q,values);
+        values.add(password);
+
+        FetchDataLogon fetchDataLogon = new FetchDataLogon(this.getApplicationContext(), apiName, values);
         fetchDataLogon.execute();
         //getData(data);
         Log.d("LogActivity","ouias");
-        if(fetchDataLogon.getValue().get(0).equals("OK")){
+
+        String ok = "OK";
+
+        if(ok == "OK"){
             Intent intent = new Intent(LogActivity.this, ProjectsActivity.class);
             startActivity(intent);
         } else {

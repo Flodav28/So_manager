@@ -22,30 +22,30 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
 
-    private String data, url,apiName;
+    private String data, url, apiName;
     private  Context context;
-    private List<String> values;
     private List<List<String>> valuesResponsesL;
     private List<String> resultValues;
-    private  static final String urlFirst  ="https://192.168.4.248/pfe/webservice.php?";
+    private List<String> values;
+    private  static final String urlFirst = "https://192.168.4.248/pfe/webservice.php?";
 
-    public FetchDataLogon(Context context,String apiName,List values) {
+    public FetchDataLogon(Context context, String apiName, List values) {
         Log.d("LogActivity","vdvds")       ;
 
         this.context = context;
-        this.values=values;
-        this.data="";
-        this.apiName=apiName;
-        this.valuesResponsesL=getVariableList(this.apiName);
-        this.url=urlFirst+addVariableName(this.valuesResponsesL,values);
-
+        this.values = values;
+        this.data = "";
+        this.apiName = apiName;
+        this.valuesResponsesL = getVariableList(this.apiName);
+        this.url = urlFirst + addVariableName(this.valuesResponsesL, values);
     }
 
 
-    public List<List<String>>  getVariableList(String apiName){
+    public List<List<String>> getVariableList(String apiName){
         return StaticUtils.apiName.get(apiName);
     }
-    public String addVariableName(List<List<String>> apiVariableNameList,List values){
+
+    public String addVariableName(List<List<String>> apiVariableNameList, List values){
         List<String> apiVarList= apiVariableNameList.get(0);
         String result="";
         for(int i=0;i<apiVarList.size();i++){
@@ -60,7 +60,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
         trustManager.getCertificate(this.context);
         try {
             URL url = new URL(this.url);
-            //Créer une connection
+            //Créer une connexion
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             httpsURLConnection.setSSLSocketFactory(trustManager.getSSLContext().getSocketFactory());
             InputStream inputStream = httpsURLConnection.getInputStream();
@@ -86,10 +86,10 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         getResultRequest(this.valuesResponsesL);
         LogActivity.getData(this.data);
-
     }
+
     public void getResultRequest(List<List<String>> variableNames){
-        List <String> responseValues=null ;
+        List <String> responseValues = null ;
         List<String> variableName =variableNames.get(1);
         JSONObject jsonObj;
         try {
@@ -99,16 +99,13 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
                 responseValues.add((String)jsonObj.get(variableName.get(i)));
                // System.out.println("reponse@@@@@@@@@@@:"+variableName.get(i)+" : "+jsonObj.get(variableName.get(i)));
             }
-
+            this.resultValues= responseValues;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        this.resultValues= responseValues;
-
     }
 
-    public List <String> getValue(){
+    public List<String> getValues(){
         return this.resultValues;
     }
-
 }

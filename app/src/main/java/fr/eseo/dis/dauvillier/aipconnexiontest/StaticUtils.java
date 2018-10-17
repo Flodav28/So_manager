@@ -1,6 +1,5 @@
 package fr.eseo.dis.dauvillier.aipconnexiontest;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +7,6 @@ import java.util.Map;
 import static java.util.Arrays.asList;
 
 public class StaticUtils {
-
-
 
     public static final List<List<String>> apiLOGON =asList( asList("q", "user", "pass"),asList("result", "api", "token"));
     public static final List<List<String>> apiLIPRJ =asList( asList("q", "user", "token"),asList("result", "api", "juries"));
