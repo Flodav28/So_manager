@@ -15,8 +15,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-public class LogActivity extends AppCompatActivity {
+public class LogActivity extends MasterActivity {
 
     //   Button  button = findViewById(R.id.button);
     //    TextView  textView = findViewById(R.id.textView);
@@ -25,6 +26,9 @@ public class LogActivity extends AppCompatActivity {
     private Button btnConnexion;
     private String user;
     private String password;
+    private Boolean verification;
+    private ResponseObject responseObject;
+    public List<String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +56,22 @@ public class LogActivity extends AppCompatActivity {
         values.add(user);
         values.add(password);
 
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this.getApplicationContext(), apiName, values);
+        FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName,values);
         fetchDataLogon.execute();
+       /* try {
+            fetchDataLogon.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
+        // getData(data);
+    }
+
+    @Override
+    public void getResponse(List response){
+        if(response.get(0).equals("OK")){
         //getData(data);
         Log.d("LogActivity","ouias");
 
@@ -62,22 +80,10 @@ public class LogActivity extends AppCompatActivity {
         if(ok == "OK"){
             Intent intent = new Intent(LogActivity.this, ProjectsActivity.class);
             startActivity(intent);
-        } else {
-            System.out.println("ça marche pas");
+        }else{
+            System.out.println("BOLOSSSS");
+        }
         }
     }
-
-    public static void getData(String data){
-        Log.d("LogActivity","data:"+data);
-        JSONObject jsonObj;
-        try {
-            System.out.println(data);
-            Log.d("LogActivity","ouias2");
-            jsonObj = new JSONObject(data);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
 
