@@ -4,30 +4,31 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities= {Commentaires.class, Confidenialite.class, Date.class, Eleves.class,
-        Informations.class, Jury.class, Notation.class, Poster.class, Projets.class}, version=1)
-
+@Database(entities= {
+        Eleves.class,
+        Jury.class,
+        MembreJury.class,
+        Notation.class,
+        Projets.class,
+        Utilisateur.class
+        },
+        version=1
+)
 public abstract class ProjectsDatabase extends RoomDatabase {
 
     private static ProjectsDatabase INSTANCE;
 
-    public abstract CommentairesDao commentairesDao();
-
-    public abstract ConfidentialiteDao confidentialiteDao();
-
-    public abstract DateDao dateDao();
-
     public abstract ElevesDao elevesDao();
-
-    public abstract InformationsDao informationsDao();
 
     public abstract JuryDao juryDao();
 
+    public abstract MembreJuryDao membreJuryDao();
+
     public abstract NotationDao notationDao();
 
-    public abstract PosterDao posterDao();
-
     public abstract ProjetsDao projetsDao();
+
+    public abstract UtilisateurDao utilisateurDao();
 
     public static ProjectsDatabase getDatabase(Context context){
         /*if(INSTANCE == null) {

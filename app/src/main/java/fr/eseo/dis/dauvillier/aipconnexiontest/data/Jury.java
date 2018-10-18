@@ -1,52 +1,41 @@
 package fr.eseo.dis.dauvillier.aipconnexiontest.data;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import java.util.Date;
 
 @Entity(tableName = "jury")
 public class Jury {
 
     @PrimaryKey
-    @NonNull
+    @ColumnInfo(name = "id_jury")
     private int idJury;
 
     @NonNull
-    private String date;
+    private Date date;
 
-    @NonNull
-    private String info;
-
-    public Jury(@NonNull int idJury, @NonNull String date, @NonNull String info) {
+    public Jury(int idJury, @NonNull Date date) {
         this.idJury = idJury;
         this.date = date;
-        this.info = info;
     }
 
-    @NonNull
     public int getIdJury() {
         return idJury;
     }
 
-    public void setIdJury(@NonNull int idJury) {
+    public void setIdJury(int idJury) {
         this.idJury = idJury;
     }
 
     @NonNull
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(@NonNull String date) {
+    public void setDate(@NonNull Date date) {
         this.date = date;
-    }
-
-    @NonNull
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(@NonNull String info) {
-        this.info = info;
     }
 }
