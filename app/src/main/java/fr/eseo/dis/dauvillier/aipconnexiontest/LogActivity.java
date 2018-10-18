@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -24,6 +25,7 @@ public class LogActivity extends MasterActivity {
     private static final String apiName = "LOGON";
 
     private Button btnConnexion;
+    private String q;
     private String user;
     private String password;
     private Boolean verification;
@@ -56,7 +58,7 @@ public class LogActivity extends MasterActivity {
         values.add(user);
         values.add(password);
 
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName,values);
+        FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName, values);
         fetchDataLogon.execute();
        /* try {
             fetchDataLogon.execute().get();
@@ -72,17 +74,10 @@ public class LogActivity extends MasterActivity {
     @Override
     public void getResponse(List response){
         if(response.get(0).equals("OK")){
-        //getData(data);
-        Log.d("LogActivity","ouias");
-
-        String ok = "OK";
-
-        if(ok == "OK"){
             Intent intent = new Intent(LogActivity.this, ProjectsActivity.class);
             startActivity(intent);
         }else{
             System.out.println("BOLOSSSS");
-        }
         }
     }
 }

@@ -24,7 +24,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
 
     private String data, url, apiName;
     private MasterActivity masterActivity;
-    private  Context context;
+    private Context context;
     private List<String> values;
     private List<List<String>> valuesResponsesDico;
     private List<String> reponseActivite=null;
@@ -34,6 +34,14 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
 
     public FetchDataLogon(MasterActivity masterActivity,String apiName,List values) {
         Log.d("LogActivity","vdvds")       ;
+        this.context = masterActivity.getApplicationContext();
+        this.values=values;
+        this.data="";
+        this.masterActivity=masterActivity;
+        this.apiName=apiName;
+        this.valuesResponsesDico=getVariableList(this.apiName);
+        this.url=urlFirst+addVariableName(this.valuesResponsesDico,values);
+
         this.context = context;
         this.values = values;
         this.data = "";
@@ -96,10 +104,13 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         getResultRequest(valuesResponsesDico);
         masterActivity.getResponse(this.reponseActivite);
+
+        getResultRequest(valuesResponsesDico);
+        masterActivity.getResponse(this.reponseActivite);
     }
 
     public void getResultRequest(List<List<String>> variableNames){
-        List <String> responseValues = null ;
+        List <String> responseValues=null ;
         List<String> variableName =variableNames.get(1);
         JSONObject jsonObj;
         try {
@@ -123,6 +134,23 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
                 default:
                     System.out.println("Il faut davantage travailler.");
             }*/
+            this.reponseActivite=responseValues;
+     /*       switch (this.apiName)
+            {
+                case "LIPRJ":
+                    System.out.println("Ouch !");
+                    break;
+                case 10:
+                    System.out.println("Vous avez juste la moyenne.");
+                    break;
+                case 20:
+                    System.out.println("Parfait !");
+                    break;
+                default:
+                    System.out.println("Il faut davantage travailler.");
+            }*/
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

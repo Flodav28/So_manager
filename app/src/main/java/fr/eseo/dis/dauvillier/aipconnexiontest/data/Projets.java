@@ -17,12 +17,12 @@ import static java.util.Arrays.asList;
                 @ForeignKey(
                         entity = Utilisateur.class,
                         parentColumns = "id_user",
-                        childColumns = "id_supervisor"
+                        childColumns = "supervisor"
                 ),
                 @ForeignKey(
                         entity = Jury.class,
                         parentColumns = "id_jury",
-                        childColumns = "id_jury"
+                        childColumns = "jury"
                 )
         })
 public class Projets {

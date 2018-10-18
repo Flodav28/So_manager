@@ -5,17 +5,17 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 
 @Entity(tableName = "membre_jury",
-        primaryKeys = {"ref_user", "ref_jury"},
+        primaryKeys = {"user", "jury"},
         foreignKeys = {
                 @ForeignKey(
                         entity = Utilisateur.class,
                         parentColumns = "id_user",
-                        childColumns = "ref_user"
+                        childColumns = "user"
                 ),
                 @ForeignKey(
                         entity = Jury.class,
                         parentColumns = "id_jury",
-                        childColumns = "ref_jury"
+                        childColumns = "jury"
                 )
 })
 public class MembreJury {
