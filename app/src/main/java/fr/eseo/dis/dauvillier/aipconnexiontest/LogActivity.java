@@ -1,6 +1,7 @@
 package fr.eseo.dis.dauvillier.aipconnexiontest;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class LogActivity extends MasterActivity {
     //   Button  button = findViewById(R.id.button);
     //    TextView  textView = findViewById(R.id.textView);
     private static final String apiName = "LOGON";
+    public static final String PREFS_NAME = "MyPrefsFile";
 
     private Button btnConnexion;
     private String q;
@@ -55,26 +57,28 @@ public class LogActivity extends MasterActivity {
 
         List<String> values=new ArrayList<String>();
         values.add(apiName);
-        values.add(user);
-        values.add(password);
+        values.add("aubinseb");
+        values.add("Lsm5hs51s9ks");
+
+
 
         FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName, values);
         fetchDataLogon.execute();
-       /* try {
-            fetchDataLogon.execute().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
-
-        // getData(data);
     }
 
     @Override
     public void getResponse(List response){
         if(response.get(0).equals("OK")){
             Intent intent = new Intent(LogActivity.this, ProjectsActivity.class);
+            intent.putExtra("login","aubinseb");
+            intent.putExtra("token",(String)response.get(1));
+
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("name","sffzez");
+            editor.putString("surname","sdsdfef");
+            editor.putString("token",(String)response.get(1));
+
             startActivity(intent);
         }else{
             System.out.println("BOLOSSSS");

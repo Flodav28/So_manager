@@ -55,7 +55,6 @@ public class TrustManager {
             } catch (CertificateException e) {
                 e.printStackTrace();
             }
-            System.out.println("ca=" + ((X509Certificate) ca).getSubjectDN());
         } finally {
             try {
                 caInput.close();
@@ -105,10 +104,8 @@ public class TrustManager {
 
         {
             try {
-                System.out.println("********************DANS BAS METHODE*************************$");
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(null, tmf.getTrustManagers(), null);
-                System.out.println("*******************SSL CONTEXT " + sslContext + "**************************");
                 this.setSLLContext(sslContext);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();

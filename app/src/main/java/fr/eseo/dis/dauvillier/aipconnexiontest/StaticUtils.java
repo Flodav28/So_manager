@@ -9,11 +9,17 @@ import static java.util.Arrays.asList;
 public class StaticUtils {
 
     public static final List<List<String>> apiLOGON =asList( asList("q", "user", "pass"),asList("result", "api", "token"));
-    public static final List<List<String>> apiLIPRJ =asList( asList("q", "user", "token"),asList("result", "api", "juries"));
-    public static final List<String> juries =asList("idJury", "date", "info");
+    public static final List<List<String>> apiLIPRJ =asList( asList("q", "user", "token"),asList("result", "api", "projects"));
+    public static final List<String> projectsLIPRJ = asList("projectId","title","descrip","poster","supervisor","confid","students");
+    public static final List<List<String>> apiMYPRJ =asList( asList("q", "user", "token"),asList("result", "api", "projects"));
+    public static final List<String> projectsMYPRJ = asList("projectId","title","descrip","poster","supervisor","confid","students");
+
+    public static final List<List<String>> apiLIJUR =asList( asList("q", "user", "token"),asList("result", "api", "juries"));
     public static final List<String> projectsLIJUR = asList("projectId","title","confid","poster","supervisor");
+    public static final List<String> juries =asList("idJury", "date", "info");
     public static final List<String> supervisor = asList("forename","surname");
     public static final List<String> students = asList("forename","surname");
+
     public static final List<List<String>> ApiMYJUR =asList( asList("q", "user", "token"),asList("result", "api", "juries"));
     public static final List<List<String>> ApiJYINF =asList( asList("q", "user","jury" ,"token"),asList("result", "api", "projects"));
     public static final List<String> projectsJYINF = asList("projectId","title","descrip","confid","poster","supervisor");
@@ -33,5 +39,8 @@ public class StaticUtils {
         apiName.put("NOTES", apiNOTES);
         apiName.put("NEWNT", apiNEWNT);
         apiName.put("PORTE", apiPORTE);
+        apiName.put("MYPRJ",apiMYPRJ);
+        apiName.put("LIJUR",apiLIJUR);
     }
+
 }
