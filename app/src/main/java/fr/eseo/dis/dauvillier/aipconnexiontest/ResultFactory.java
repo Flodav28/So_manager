@@ -29,6 +29,24 @@ public class ResultFactory {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            case "MYPRJ":
+                try {
+                    ResultMPRJ resultMPRJ= new ResultMPRJ(data,masterActivity);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            case "JYINF":
+                try {
+                    ResultJYINF resultJYINF= new ResultJYINF(data,masterActivity);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            case "MYJUR":
+                try {
+                    ResultMYJUR resultMYJUR= new ResultMYJUR(data,masterActivity);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             default:
                 System.out.println("Bonjoir ! :p");
         }

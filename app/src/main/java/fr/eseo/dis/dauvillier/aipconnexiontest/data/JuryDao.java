@@ -24,6 +24,7 @@ public interface JuryDao {
     @Insert
     long insertJury(Jury jury);
 
+
     @Update
     void updateJury(Jury jury);
 

@@ -24,8 +24,8 @@ public class ProjectsActivity extends  MasterActivity  {
             values.add("LIPRJ");
             values.add(login);
             values.add(token);
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"LIPRJ",values);
-        fetchDataLogon.execute();
+        //FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"LIPRJ",values);
+        //fetchDataLogon.execute();
         }
     @Override
     public void getResponse(List response){
@@ -34,7 +34,7 @@ public class ProjectsActivity extends  MasterActivity  {
         String login=intent.getStringExtra("login");
         String token=intent.getStringExtra("token");
         List<String> values= new ArrayList<String>();
-        values.add("LIPRJ");
+        values.add("MYPRJ");
         values.add(login);
         values.add(token);
         System.out.println("AAAAAAAAAAAAAAAAAAAAAA");

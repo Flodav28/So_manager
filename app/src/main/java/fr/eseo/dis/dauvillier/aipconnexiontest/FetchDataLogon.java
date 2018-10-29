@@ -30,7 +30,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
     private List<String> reponseActivite=null;
     private  static final String urlFirst  ="https://192.168.4.248/pfe/webservice.php?";
 
-    public FetchDataLogon(LogActivity masterActivity,String apiName,List values) {
+    public FetchDataLogon(MasterActivity masterActivity,String apiName,List values) {
         this.context = masterActivity.getApplicationContext();
         this.values=values;
         this.data="";
@@ -40,7 +40,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
         this.url=urlFirst+addVariableName(this.valuesResponsesDico,values);
 
     }
-    public FetchDataLogon(ProjectsActivity masterActivity,String apiName,List values) {
+/*    public FetchDataLogon(ProjectsActivity masterActivity,String apiName,List values) {
         this.context = masterActivity.getApplicationContext();
         this.values=values;
         this.data=""; this.masterActivity=masterActivity;
@@ -49,7 +49,7 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
         this.url=urlFirst+addVariableName(this.valuesResponsesDico,values);
 
 
-}
+}*/
     public List<List<String>>  getVariableList(String apiName){
         return StaticUtils.apiName.get(apiName);
     }

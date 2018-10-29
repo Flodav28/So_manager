@@ -1,5 +1,6 @@
 package fr.eseo.dis.dauvillier.aipconnexiontest;
 
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -8,18 +9,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementEleveDB;
 import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementJuryDB;
 import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementProjetDB;
 import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementUtilisateurDB;
+import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
 
-public class ResultLIJUR {
-    private static final String  API="MPRJ";
+public class ResultMYJUR {
+    private static final String  API="MYJUR";
 
     public String data;
     public MasterActivity activity;
     public JSONObject jsonJury;
     public TraitementJuryDB traitementJuryDB;
-    public ResultLIJUR(String data,MasterActivity activity) throws JSONException {
+
+    public ResultMYJUR(String data,MasterActivity activity) throws JSONException {
         this.data=data;
         this.activity=activity;
         this.jsonJury= TraitementProjetDB.getJsonObject(data);
@@ -65,4 +69,5 @@ public class ResultLIJUR {
         }
         activity.getResponse1(responseValues);
     }
+
 }

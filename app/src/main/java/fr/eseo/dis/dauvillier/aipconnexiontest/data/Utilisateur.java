@@ -6,13 +6,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "utilisateur",
-        indices = {
-        @Index(
-                value = {"forename", "surname"},
-                unique = true
-        )
-})
+
+@Entity(indices = {@Index(value = {"forename", "surname"}, unique = true)})
 public class Utilisateur {
 
     @PrimaryKey(autoGenerate = true)

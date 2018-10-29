@@ -20,8 +20,8 @@ public class StaticUtils {
     public static final List<String> supervisor = asList("forename","surname");
     public static final List<String> students = asList("forename","surname");
 
-    public static final List<List<String>> ApiMYJUR =asList( asList("q", "user", "token"),asList("result", "api", "juries"));
-    public static final List<List<String>> ApiJYINF =asList( asList("q", "user","jury" ,"token"),asList("result", "api", "projects"));
+    public static final List<List<String>> apiMYJUR =asList( asList("q", "user", "token"),asList("result", "api", "juries"));
+    public static final List<List<String>> apiJYINF =asList( asList("q", "user","jury" ,"token"),asList("result", "api", "projects"));
     public static final List<String> projectsJYINF = asList("projectId","title","descrip","confid","poster","supervisor");
     public static final List<List<String>> apiPOSTR =asList( asList("q", "user", "proj","style","token"));
     public static final List<List<String>> apiNOTES =asList( asList("q", "user", "proj","token"),asList("result", "api", "notes"));
@@ -33,8 +33,8 @@ public class StaticUtils {
     static {
         apiName.put("LOGON", apiLOGON);
         apiName.put("LIPRJ", apiLIPRJ);
-        apiName.put("MYJUR", ApiMYJUR);
-        apiName.put("JYINF", ApiJYINF);
+        apiName.put("MYJUR", apiMYJUR);
+        apiName.put("JYINF", apiJYINF);
         apiName.put("POSTR", apiPOSTR);
         apiName.put("NOTES", apiNOTES);
         apiName.put("NEWNT", apiNEWNT);

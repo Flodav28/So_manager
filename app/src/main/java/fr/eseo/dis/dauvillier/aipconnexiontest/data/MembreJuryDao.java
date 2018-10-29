@@ -21,6 +21,7 @@ public interface MembreJuryDao {
     void updateMembreJury(MembreJury membreJury);
 
     @Insert
+
     long insertMembreJury(MembreJury membreJury);
 
     @Delete

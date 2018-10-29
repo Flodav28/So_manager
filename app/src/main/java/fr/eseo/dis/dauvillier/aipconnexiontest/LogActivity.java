@@ -33,7 +33,7 @@ public class LogActivity extends MasterActivity {
     private Boolean verification;
     private ResponseObject responseObject;
     public List<String> list;
-
+    public static String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +68,7 @@ public class LogActivity extends MasterActivity {
 
     @Override
     public void getResponse(List response){
-        if(response.get(0).equals("OK")){
+        if(response.get(0).equals("OK")){/*
             Intent intent = new Intent(LogActivity.this, ProjectsActivity.class);
             intent.putExtra("login","aubinseb");
             intent.putExtra("token",(String)response.get(1));
@@ -77,12 +77,30 @@ public class LogActivity extends MasterActivity {
             SharedPreferences.Editor editor = settings.edit();
             editor.putString("name","sffzez");
             editor.putString("surname","sdsdfef");
-            editor.putString("token",(String)response.get(1));
+            editor.putString("token",(String)response.get(1));*/
+            List<String> values1=new ArrayList<String>();
 
-            startActivity(intent);
+            values1.add("JYINF");
+            values1.add("aubinseb");
+            token=(String)response.get(1);
+            values1.add("1");
+            values1.add((String)response.get(1));
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
+            FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"JYINF",values1);
+            fetchDataLogon.execute();
+
         }else{
             System.out.println("BOLOSSSS");
         }
+    }
+    @Override
+    public void getResponse1(List response){
+
+            Intent intent = new Intent(LogActivity.this, ProjectsActivity.class);
+            intent.putExtra("login","aubinseb");
+            intent.putExtra("token",token);
+            startActivity(intent);
+
     }
 }
 
