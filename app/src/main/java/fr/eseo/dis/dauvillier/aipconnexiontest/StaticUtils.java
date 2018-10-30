@@ -31,16 +31,16 @@ public class StaticUtils {
     public static final List<String> projectsPORTE = asList("idProject","title","description","poster");
     public static final Map<String,List<List<String>>> apiName = new HashMap<String,List<List<String>>>();
     static {
-        apiName.put("LOGON", apiLOGON);
-        apiName.put("LIPRJ", apiLIPRJ);
-        apiName.put("MYJUR", apiMYJUR);
-        apiName.put("JYINF", apiJYINF);
+        apiName.put("LOGON", apiLOGON);// login
+        apiName.put("LIPRJ", apiLIPRJ);//all project
+        apiName.put("MYJUR", apiMYJUR);// mes juries
+        apiName.put("JYINF", apiJYINF);// projet et etudiant qu ej dois noter
         apiName.put("POSTR", apiPOSTR);
-        apiName.put("NOTES", apiNOTES);
+        apiName.put("NOTES", apiNOTES);// les notes de chaques membre d'un projet ainsi que celle du user
         apiName.put("NEWNT", apiNEWNT);
         apiName.put("PORTE", apiPORTE);
-        apiName.put("MYPRJ",apiMYPRJ);
-        apiName.put("LIJUR",apiLIJUR);
+        apiName.put("MYPRJ",apiMYPRJ);// mes projets dans lequel je suis supervisor
+        apiName.put("LIJUR",apiLIJUR);// all juries
     }
 
 }
