@@ -18,17 +18,13 @@ public class TraitementUtilisateurDB {
     private JSONObject jsonUtilisateur;
     private Utilisateur utilisateur;
 
-
-
-
-
     public TraitementUtilisateurDB(Activity activity,  JSONObject jsonUtilisateur){
         this.utilisateurDao=ProjectsDatabase.getDatabase(activity).utilisateurDao();
         this.lUtilisateur =this.utilisateurDao.getAllUtilisateurs();
         this.jsonUtilisateur=jsonUtilisateur;
-
     }
-    public  boolean   existInDB(Utilisateur user){
+
+    public boolean existInDB(Utilisateur user){
         boolean isInDB=false;
         for (Utilisateur utilisateur :this.utilisateurDao.getAllUtilisateurs()){
             if (utilisateur.getSurname().equals(user.getSurname()) && utilisateur.getForename().equals(user.getForename())){
@@ -38,10 +34,12 @@ public class TraitementUtilisateurDB {
         }
         return isInDB;
     }
+
     public void insertUtilisateur(Utilisateur utilisateur){
         this.utilisateurDao.insertUtilisateur(utilisateur);
 
     }
+
     public static JSONObject getJsonObject(String data){
         JSONObject jsonObj=null;
         try {
@@ -52,6 +50,7 @@ public class TraitementUtilisateurDB {
         }
         return jsonObj;
     }
+
     public int getId(){
         int id=0;
         if(!lUtilisateur.isEmpty()) {
@@ -63,6 +62,7 @@ public class TraitementUtilisateurDB {
 
         return  id;
     }
+
     public boolean resultOk(){
         boolean bool=false;
         try {
@@ -74,6 +74,7 @@ public class TraitementUtilisateurDB {
         }
         return bool;
     }
+
     public void traitement(String APIname) throws JSONException {
         int id = this.getId();
         String forename=null;
@@ -94,6 +95,7 @@ public class TraitementUtilisateurDB {
             this.insertUtilisateur(utilisateur);
         }
     }
+
     public List<Utilisateur> getlUtilisateur() {
         setlUtilisateur();
         return lUtilisateur;
@@ -106,6 +108,7 @@ public class TraitementUtilisateurDB {
     public UtilisateurDao getUtilisateurDao() {
         return utilisateurDao;
     }
+
     public Utilisateur getUtilisateur() {
         return utilisateur;
     }
@@ -121,7 +124,5 @@ public class TraitementUtilisateurDB {
     public void setJsonUtilisateur(JSONObject jsonUtilisateur) {
         this.jsonUtilisateur = jsonUtilisateur;
     }
-
-
 
 }

@@ -3,7 +3,10 @@ package fr.eseo.dis.dauvillier.aipconnexiontest.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -25,7 +28,17 @@ import static java.util.Arrays.asList;
                         childColumns = "jury"
                 )
         })
-public class Projets {
+public class Projets implements Parcelable {
+
+    public static final Parcelable.Creator<Projets> CREATOR = new Parcelable.Creator<Projets>(){
+        public Projets createFromParcel(Parcel source){
+            return new Projets(source);
+        }
+
+        public Projets[] newArray(int size){
+            return new Projets[size];
+        }
+    };
 
     public static final List<String> projets = asList("projectId", "title", "descrip",
             "poster", "supervisor", "confid", "students");
@@ -54,7 +67,7 @@ public class Projets {
     @ColumnInfo(name = "jury")
     private Integer jury;
 
-    public Projets(int idProject, @NonNull String title, @Nullable String descrip,
+    public Projets(@NonNull int idProject, @NonNull String title, @Nullable String descrip,
                    @Nullable String confid, @Nullable boolean poster, @Nullable Integer supervisor,
                    @Nullable Integer jury) {
         this.idProject = idProject;
@@ -64,6 +77,16 @@ public class Projets {
         this.poster = poster;
         this.supervisor = supervisor;
         this.jury = jury;
+    }
+
+    @Ignore
+    public Projets(Parcel in){
+        this.idProject = in.readInt();
+        this.title = in.readString();
+        this.descrip = in.readString();
+        this.confid = in.readString();
+        this.supervisor = in.readInt();
+        this.jury = in.readInt();
     }
 
     public static List<String> getProjets() {
@@ -130,5 +153,20 @@ public class Projets {
 
     public void setJury(@Nullable Integer jury) {
         this.jury = jury;
+    }
+
+    @Ignore
+    public int describeContents(){
+        return 0;
+    }
+
+    @Ignore
+    public void writeToParcel(Parcel dest, int flags){
+        dest.writeInt(this.idProject);
+        dest.writeString(this.title);
+        dest.writeString(this.descrip);
+        dest.writeString(this.confid);
+        /*dest.writeInt(this.supervisor);
+        dest.writeInt(this.jury);*/
     }
 }

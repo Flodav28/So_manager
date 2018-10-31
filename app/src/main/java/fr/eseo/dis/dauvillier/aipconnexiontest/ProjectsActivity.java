@@ -2,16 +2,20 @@ package fr.eseo.dis.dauvillier.aipconnexiontest;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eseo.dis.dauvillier.aipconnexiontest.adapters.ProjetsAdapter;
+import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
+
 public class ProjectsActivity extends  MasterActivity  {
+
+    public static final String PROJECT_EXTRA = "project_extra";
+
+    public static int NEW_CARD_COUNTER;
+
+    private ProjetsAdapter projetAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +28,10 @@ public class ProjectsActivity extends  MasterActivity  {
             values.add("LIPRJ");
             values.add(login);
             values.add(token);
-        //FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"LIPRJ",values);
-        //fetchDataLogon.execute();
-        }
+        MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"LIPRJ",values);
+        fetchDataLogon.execute();
+    }
+
     @Override
     public void getResponse(List response){
         setContentView(R.layout.activity_projects);
@@ -38,10 +43,10 @@ public class ProjectsActivity extends  MasterActivity  {
         values.add(login);
         values.add(token);
         System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"LIPRJ",values);
+        MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"LIPRJ",values);
         fetchDataLogon.execute();
-
     }
+
     @Override
     public void getResponse1(List response){
         setContentView(R.layout.activity_projects);
@@ -53,8 +58,13 @@ public class ProjectsActivity extends  MasterActivity  {
         values.add(login);
         values.add(token);
         System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"LIJUR",values);
+        MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"LIJUR",values);
         fetchDataLogon.execute();
+    }
 
+    public void clickProjetCard(Projets projet) {
+        Intent intent = new Intent(this, ProjectDetailsActivity.class);
+        intent.putExtra(PROJECT_EXTRA, projet);
+        startActivity(intent);
     }
 }

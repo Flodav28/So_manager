@@ -1,23 +1,14 @@
 package fr.eseo.dis.dauvillier.aipconnexiontest;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.EditText;
-import android.widget.TextView;
 
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class LogActivity extends MasterActivity {
 
@@ -34,10 +25,11 @@ public class LogActivity extends MasterActivity {
     private ResponseObject responseObject;
     public List<String> list;
     public static String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_log);
 
         btnConnexion = (Button) findViewById(R.id.connection_button);
         btnConnexion.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +38,6 @@ public class LogActivity extends MasterActivity {
                 onClickBtn(v);
             }
         });
-
     }
 
     public void onClickBtn(View view){
@@ -60,9 +51,7 @@ public class LogActivity extends MasterActivity {
         values.add("aubinseb");
         values.add("Lsm5hs51s9ks");
 
-
-
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName, values);
+        MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this, apiName, values);
         fetchDataLogon.execute();
     }
 
@@ -86,21 +75,20 @@ public class LogActivity extends MasterActivity {
             values1.add("1");
             values1.add((String)response.get(1));
             System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
-            FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"JYINF",values1);
+            MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"JYINF",values1);
             fetchDataLogon.execute();
 
         }else{
             System.out.println("BOLOSSSS");
         }
     }
+
     @Override
     public void getResponse1(List response){
-
-            Intent intent = new Intent(LogActivity.this, ProjectsActivity.class);
-            intent.putExtra("login","aubinseb");
-            intent.putExtra("token",token);
-            startActivity(intent);
-
+        Intent intent = new Intent(LogActivity.this, MainActivity.class);
+        intent.putExtra("login","aubinseb");
+        intent.putExtra("token",token);
+        startActivity(intent);
     }
 }
 

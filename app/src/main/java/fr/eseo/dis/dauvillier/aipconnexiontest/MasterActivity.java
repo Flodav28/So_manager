@@ -12,8 +12,10 @@ public class MasterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
     }
+
     public void getResponse(List response){
     }
+
     public void getResponse1(List response){
     }
 

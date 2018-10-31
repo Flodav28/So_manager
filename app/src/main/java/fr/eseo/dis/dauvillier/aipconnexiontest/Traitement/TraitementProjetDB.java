@@ -13,22 +13,19 @@ import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
 import fr.eseo.dis.dauvillier.aipconnexiontest.data.ProjetsDao;
 
 public class TraitementProjetDB {
+
     private List<Projets> lProjets;
     private ProjetsDao projetsDao;
     private JSONObject jsonProjet;
     private Projets projet;
 
-
-
-
-
     public TraitementProjetDB(Activity activity, JSONObject jsonEleve){
-        this.projetsDao= ProjectsDatabase.getDatabase(activity).projetsDao();
-        this.lProjets =this.projetsDao.getAllProjets();
-        this.jsonProjet=jsonEleve;
-
+        this.projetsDao = ProjectsDatabase.getDatabase(activity).projetsDao();
+        this.lProjets = this.projetsDao.getAllProjets();
+        this.jsonProjet = jsonEleve;
     }
-    public  boolean   existInDB(Projets projet){
+
+    public boolean existInDB(Projets projet){
         boolean isInDB=false;
         for (Projets projets :this.lProjets){
             if (projets.getIdProject()==projet.getIdProject()){
@@ -39,10 +36,11 @@ public class TraitementProjetDB {
         }
         return isInDB;
     }
+
     public void insertProjet(Projets projets){
         this.projetsDao.insertProjet(projets);
-
     }
+
     public static JSONObject getJsonObject(String data){
         JSONObject jsonObj=null;
         try {
@@ -65,33 +63,29 @@ public class TraitementProjetDB {
         }
         return bool;
     }
-    public void traitement(String apiName,int idUser,Integer idJury) throws JSONException {
 
+    public void traitement(String apiName,int idUser,Integer idJury) throws JSONException {
         int id = idUser;
         Integer idJ=idJury;
 
-
-         idJ=idJury;
-         projet = new Projets(
-                jsonProjet.getInt("projectId")+1,
-                jsonProjet.getString("title"),
-                jsonProjet.getString("descrip"),
-                jsonProjet.getString("confid"),
-                jsonProjet.getBoolean("poster"),
-                idUser,
-                 idJ
-
+        idJ=idJury;
+        projet = new Projets(
+            jsonProjet.getInt("projectId")+1,
+            jsonProjet.getString("title"),
+            jsonProjet.getString("descrip"),
+            jsonProjet.getString("confid"),
+            jsonProjet.getBoolean("poster"),
+            idUser, idJ
         );
 
         if (!this.existInDB(projet)) {
             this.insertProjet(projet);
         }
     }
-    public void traitementLIJUR(String apiName,int idUser,Integer idJury) throws JSONException {
 
+    public void traitementLIJUR(String apiName,int idUser,Integer idJury) throws JSONException {
         int id = idUser;
         Integer idJ=idJury;
-
 
         idJ=idJury;
         projet = new Projets(
@@ -102,7 +96,6 @@ public class TraitementProjetDB {
                 jsonProjet.getBoolean("poster"),
                 idUser,
                 idJ
-
         );
 
         if (!this.existInDB(projet)) {

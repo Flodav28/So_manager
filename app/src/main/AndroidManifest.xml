@@ -19,7 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProjectsActivity" />
-        <activity android:name=".MasterActivity"></activity>
+        <activity android:name=".MasterActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".JuryActivity" />
+        <activity android:name=".ProjectDetailsActivity"></activity>
     </application>
 
 </manifest>
