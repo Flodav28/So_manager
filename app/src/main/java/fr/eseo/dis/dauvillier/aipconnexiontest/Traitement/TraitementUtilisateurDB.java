@@ -79,13 +79,11 @@ public class TraitementUtilisateurDB {
         int id = this.getId();
         String forename=null;
         String surname=null;
-        if("LOGON".equals(APIname)){
-                forename="dupont";
-                surname="philippe";
-        }else{
+
+
             forename=(String)this.jsonUtilisateur.get("forename");
             surname=(String)this.jsonUtilisateur.get("surname");
-        }
+
         utilisateur  = new Utilisateur(
                 id,
                 forename,

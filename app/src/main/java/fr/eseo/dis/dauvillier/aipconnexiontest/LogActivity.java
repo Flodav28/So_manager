@@ -23,8 +23,12 @@ public class LogActivity extends MasterActivity {
     private String password;
     private Boolean verification;
     private ResponseObject responseObject;
+    private String forename;
+    private String surname;
+    private String userName;
+    private String token;
+    private String role;
     public List<String> list;
-    public static String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,7 @@ public class LogActivity extends MasterActivity {
         values.add("aubinseb");
         values.add("Lsm5hs51s9ks");
 
-        MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this, apiName, values);
+       FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName, values);
         fetchDataLogon.execute();
     }
 
@@ -69,13 +73,11 @@ public class LogActivity extends MasterActivity {
             editor.putString("token",(String)response.get(1));*/
             List<String> values1=new ArrayList<String>();
 
-            values1.add("JYINF");
+            values1.add("MYINF");
             values1.add("aubinseb");
             token=(String)response.get(1);
-            values1.add("1");
-            values1.add((String)response.get(1));
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
-            MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"JYINF",values1);
+            values1.add(token);
+            FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"MYINF",values1);
             fetchDataLogon.execute();
 
         }else{
@@ -85,9 +87,16 @@ public class LogActivity extends MasterActivity {
 
     @Override
     public void getResponse1(List response){
+        userName=(String)response.get(0);
+        forename=(String)response.get(1);
+        surname=(String)response.get(2);
+        role=(String)response.get(3);
         Intent intent = new Intent(LogActivity.this, MainActivity.class);
-        intent.putExtra("login","aubinseb");
+        intent.putExtra("userName",userName);
         intent.putExtra("token",token);
+        intent.putExtra("forename",forename);
+        intent.putExtra("surname",surname);
+        intent.putExtra("role",role);
         startActivity(intent);
     }
 }

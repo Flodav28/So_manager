@@ -66,6 +66,6 @@ public class ResultMPRJ {
             e.printStackTrace();
         }
         Log.d("flodav2", String.valueOf(traitementProjetDB.getlProjet().size()));
-        activity.getResponse1(responseValues);
+        activity.getResponse(responseValues);
     }
 }

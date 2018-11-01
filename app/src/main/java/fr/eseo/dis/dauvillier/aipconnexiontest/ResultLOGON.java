@@ -35,16 +35,16 @@ public class ResultLOGON {
         }
     }
     public void getResultRequest() throws JSONException {
+
         List <String> responseValues=new ArrayList<>();
 
 
             //result est valide
             if(this.traitementUtilisateur.resultOk()){
-                this.traitementUtilisateur.traitement(API);
+                //this.traitementUtilisateur.traitement(API);
                 responseValues.add((String)this.jsonUtilisateur.get("result"));
                 responseValues.add((String)this.jsonUtilisateur.get("token"));
 
-                Log.d("flodav","aaaaaaaaaaaaaaaakkkkkkkkkkkkk   : "+traitementUtilisateur.getlUtilisateur().size());
            }else{
                 responseValues.add((String)this.jsonUtilisateur.get("result"));
             }

@@ -20,21 +20,34 @@ public class ProjectsActivity extends  MasterActivity  {
     public static int NEW_CARD_COUNTER;
 
     private ProjetsAdapter projetAdapter;
-    private ProjetsDao projetsDao;
-
+    private String forename;
+    private String surname;
+    private String userName;
+    private String token;
+    private String role;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects);
-        Intent intent = getIntent();
-        String login=intent.getStringExtra("login");
-        String token=intent.getStringExtra("token");
+        init();
+
         List<String> values= new ArrayList<String>();
             values.add("LIPRJ");
-            values.add(login);
+            values.add(userName);
             values.add(token);
-        MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"LIPRJ",values);
+        FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"LIPRJ",values);
         fetchDataLogon.execute();
+
+    }
+
+    private void loadAllProjetsData(){
+        List<Projets> lProjets =ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets();
+        projetAdapter.setProjets(lProjets);
+        projetAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void getResponse(List response){
         NEW_CARD_COUNTER = 0;
         RecyclerView recycler = (RecyclerView)findViewById(R.id.projectsList);
         recycler.setHasFixedSize(true);
@@ -46,44 +59,30 @@ public class ProjectsActivity extends  MasterActivity  {
         loadAllProjetsData();
     }
 
-    private void loadAllProjetsData(){
-        projetAdapter.setProjets(ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets());
-        projetAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void getResponse(List response){
-        setContentView(R.layout.activity_projects);
-        Intent intent = getIntent();
-        String login=intent.getStringExtra("login");
-        String token=intent.getStringExtra("token");
-        List<String> values= new ArrayList<String>();
-        values.add("MYPRJ");
-        values.add(login);
-        values.add(token);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
-        MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"LIPRJ",values);
-        fetchDataLogon.execute();
-    }
-
-    @Override
-    public void getResponse1(List response){
-        setContentView(R.layout.activity_projects);
-        Intent intent = getIntent();
-        String login=intent.getStringExtra("login");
-        String token=intent.getStringExtra("token");
-        List<String> values= new ArrayList<String>();
-        values.add("LIJUR");
-        values.add(login);
-        values.add(token);
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAA");
-        MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"LIJUR",values);
-        fetchDataLogon.execute();
-    }
 
     public void clickProjetCard(Projets projet) {
         Intent intent = new Intent(this, ProjectDetailsActivity.class);
         intent.putExtra(PROJECT_EXTRA, projet);
-        startActivity(intent);
+        changeActivity(intent);
     }
+    public void init(){
+
+        Intent intent = getIntent();
+        userName=intent.getStringExtra("userName");
+        forename=intent.getStringExtra("forename");
+        surname=intent.getStringExtra("surname");
+        role=intent.getStringExtra("role");
+        token = intent.getStringExtra("token");
+
+    }
+    public void changeActivity(Intent intent){
+        intent.putExtra("userName",userName);
+        intent.putExtra("token",token);
+        intent.putExtra("forename",forename);
+        intent.putExtra("surname",surname);
+        intent.putExtra("role",role);
+        startActivity(intent);
+
+    }
+
 }

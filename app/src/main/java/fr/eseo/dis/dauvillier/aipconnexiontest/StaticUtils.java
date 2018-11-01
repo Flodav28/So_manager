@@ -10,6 +10,8 @@ public class StaticUtils {
 
     public static final List<List<String>> apiLOGON =asList( asList("q", "user", "pass"),asList("result", "api", "token"));
     public static final List<List<String>> apiLIPRJ =asList( asList("q", "user", "token"),asList("result", "api", "projects"));
+    public static final List<List<String>> apiMYINF =asList( asList("q", "user", "token"),asList("result", "api", "projects"));
+
     public static final List<String> projectsLIPRJ = asList("projectId","title","descrip","poster","supervisor","confid","students");
     public static final List<List<String>> apiMYPRJ =asList( asList("q", "user", "token"),asList("result", "api", "projects"));
     public static final List<String> projectsMYPRJ = asList("projectId","title","descrip","poster","supervisor","confid","students");
@@ -26,7 +28,7 @@ public class StaticUtils {
     public static final List<List<String>> apiPOSTR =asList( asList("q", "user", "proj","style","token"));
     public static final List<List<String>> apiNOTES =asList( asList("q", "user", "proj","token"),asList("result", "api", "notes"));
     public static final List<String> notes = asList("userId", "forename", "surname","mynote","avgnote");
-    public static final List<List<String>> apiNEWNT =asList( asList("q", "user", "porj","student","note","token"),asList("result", "api"));
+    public static final List<List<String>> apiNEWNT =asList( asList("q", "user", "proj","student","note","token"),asList("result", "api"));
     public static final List<List<String>> apiPORTE =asList( asList("q", "user", "seed","token"),asList("result", "api","seed","projects"));
     public static final List<String> projectsPORTE = asList("idProject","title","description","poster");
     public static final Map<String,List<List<String>>> apiName = new HashMap<String,List<List<String>>>();
@@ -41,6 +43,6 @@ public class StaticUtils {
         apiName.put("PORTE", apiPORTE);
         apiName.put("MYPRJ",apiMYPRJ);// mes projets dans lequel je suis supervisor
         apiName.put("LIJUR",apiLIJUR);// all juries
+        apiName.put("MYINF",apiMYINF);
     }
-
 }

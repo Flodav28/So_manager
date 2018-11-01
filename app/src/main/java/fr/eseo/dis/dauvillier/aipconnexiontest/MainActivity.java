@@ -24,12 +24,17 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnJury;
     private Button btnProjets;
+    private String forename;
+    private String surname;
+    private String userName;
+    private String token;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        init();
         btnJury = (Button) findViewById(R.id.jury_button);
         btnJury.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,134 +51,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     public void onClickBtnJury(View view){
         Intent intent = new Intent(MainActivity.this, JuryActivity.class);
-        startActivity(intent);
+        changeActivity(intent);
     }
 
     public void onClickBtnProjets(View view){
         Intent intent = new Intent(MainActivity.this, ProjectsActivity.class);
-        startActivity(intent);
+        changeActivity(intent);
     }
+    public void init(){
 
-    public static class FetchDataLogon extends AsyncTask<Void, Void, Void> {
+        Intent intent = getIntent();
+        userName=intent.getStringExtra("userName");
+        forename=intent.getStringExtra("forename");
+        surname=intent.getStringExtra("surname");
+        role=intent.getStringExtra("role");
+        token= intent.getStringExtra("token");
 
-        public String data, url,apiName;
-        private MasterActivity masterActivity;
-        private Context context;
-        private List<String> values;
-        private List<List<String>> valuesResponsesDico;
-        private List<String> reponseActivite=null;
-        private  static final String urlFirst  ="https://192.168.4.248/pfe/webservice.php?";
-
-        public FetchDataLogon(MasterActivity masterActivity,String apiName,List values) {
-            this.context = masterActivity.getApplicationContext();
-            this.values=values;
-            this.data="";
-            this.masterActivity=masterActivity;
-            this.apiName=apiName;
-            this.valuesResponsesDico=getVariableList(this.apiName);
-            this.url=urlFirst+addVariableName(this.valuesResponsesDico,values);
-        }
-
-    /*    public FetchDataLogon(ProjectsActivity masterActivity,String apiName,List values) {
-            this.context = masterActivity.getApplicationContext();
-            this.values=values;
-            this.data=""; this.masterActivity=masterActivity;
-            this.apiName=apiName;
-            this.valuesResponsesDico=getVariableList(this.apiName);
-            this.url=urlFirst+addVariableName(this.valuesResponsesDico,values);
-    }*/
-
-        public List<List<String>>  getVariableList(String apiName){
-            return StaticUtils.apiName.get(apiName);
-        }
-
-        public String addVariableName(List<List<String>> apiVariableNameList,List values){
-            List<String> apiVarList= apiVariableNameList.get(0);
-            String result="";
-            for(int i=0;i<apiVarList.size();i++){
-                result+="&"+apiVarList.get(i)+"="+values.get(i);
-            }
-            return result;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            TrustManager trustManager = new TrustManager();
-            trustManager.getCertificate(this.context);
-            try {
-                URL url = new URL(this.url);
-                //Créer une connexion
-                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
-                httpsURLConnection.setSSLSocketFactory(trustManager.getSSLContext().getSocketFactory());
-                InputStream inputStream = httpsURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-                String line ="";
-                String beforeData="";
-                while (line != null) {
-                    line = bufferedReader.readLine();
-                     beforeData= beforeData +line;
-                }
-                this.data=beforeData;
-                //getResultRequest(this.valuesResponsesDico);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-           ResultFactory res = new ResultFactory(this.apiName,this.data,this.masterActivity);
-        }
-
-     /*   public void getResultRequest(List<List<String>> variableNames){
-            List <String> responseValues=null ;
-
-            List<String> variableName =variableNames.get(1);
-            JSONObject jsonObj;
-            try {
-                responseValues = new ArrayList<String>();
-                jsonObj = new JSONObject(data);
-                for(int i=0;i<variableName.size();i++){
-                    responseValues.add((String)jsonObj.get(variableName.get(i)));
-                   // jsonObj.getJSONArray().
-                }
-                *//*switch (this.apiName)
-                /*{
-                    case "LIPRJ":
-                        List<String> tempL= new ArrayList<>();
-                        tempL.addAll(responseValues,addList(responseValues,StaticUtils.projectsLIPRJ));
-                        break;
-                    case 10:
-                        System.out.println("Vous avez juste la moyenne.");
-                        break;
-                    case 20:
-                        System.out.println("Parfait !");
-                        break;
-                    default:
-                        System.out.println("Il faut davantage travailler.");
-                }*//*
-                this.reponseActivite=responseValues;
-
-
-
-        } catch (JSONException e) {
-                e.printStackTrace();
-            }
-    //    public List<String> addList(List<String> listToAdd){
-    //        List <String> responseValues= new ArrayList<String>();
-    //        for(int i=0;i< values;i++){
-    //            responseValues.add((String)jsonObj.get(variableName.get(i)));
-    //        }*/
-
-
-    //    }
+    }
+    public void changeActivity(Intent intent){
+        intent.putExtra("userName",userName);
+        intent.putExtra("token",token);
+        intent.putExtra("forename",forename);
+        intent.putExtra("surname",surname);
+        intent.putExtra("role",role);
+        startActivity(intent);
 
     }
 }

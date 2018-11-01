@@ -58,9 +58,9 @@ public class JuryAdapter extends RecyclerView.Adapter<JuryAdapter.JuryViewHolder
 
         /*if (positionsExpanded.contains(position)) {
             holder.filmResume.setVisibility(View.VISIBLE);
-        } else {
-            holder.filmResume.setVisibility(View.GONE);
-        }*/
+    } else {
+        holder.filmResume.setVisibility(View.GONE);
+    }*/
 
         /*holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

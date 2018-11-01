@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 
 @Entity(indices = {@Index(value = {"forename", "surname"}, unique = true)})
@@ -20,11 +21,15 @@ public class Utilisateur {
     @NonNull
     private String surname;
 
+
+
     public Utilisateur(int idUser, @NonNull String forename, @NonNull String surname) {
         this.idUser = idUser;
         this.forename = forename;
         this.surname = surname;
     }
+
+
 
     public int getIdUser() {
         return idUser;
