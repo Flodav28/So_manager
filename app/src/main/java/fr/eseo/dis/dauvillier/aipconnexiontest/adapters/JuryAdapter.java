@@ -47,9 +47,10 @@ public class JuryAdapter extends RecyclerView.Adapter<JuryAdapter.JuryViewHolder
     @Override
     public void onBindViewHolder(@NonNull JuryAdapter.JuryViewHolder holder, final int position) {
         final Jury jury = this.jury.get(position);
-        holder.jury.setText(jury.getIdJury());
+        holder.jury.setText(String.valueOf(jury.getIdJury()));
 
-        holder.view.setOnClickListener(new View.OnClickListener() {
+        holder.view.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.clickJuryCard(jury);
