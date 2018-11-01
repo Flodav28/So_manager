@@ -18,6 +18,7 @@ public class TraitementProjetDB {
     private ProjetsDao projetsDao;
     private JSONObject jsonProjet;
     private Projets projet;
+    private List<Projets>lMyProjet;
 
     public TraitementProjetDB(Activity activity, JSONObject jsonEleve){
         this.projetsDao = ProjectsDatabase.getDatabase(activity).projetsDao();
@@ -70,7 +71,7 @@ public class TraitementProjetDB {
 
         idJ=idJury;
         projet = new Projets(
-            jsonProjet.getInt("projectId")+1,
+            jsonProjet.getInt("projectId"),
             jsonProjet.getString("title"),
             jsonProjet.getString("descrip"),
             jsonProjet.getString("confid"),

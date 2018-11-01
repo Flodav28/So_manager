@@ -33,17 +33,15 @@ public class JuryActivity extends MasterActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jury);
         init();
-
-        List<String> values= new ArrayList<String>();
-        values.add("LIJUR");
-        values.add(userName);
-        values.add(token);
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"LIJUR",values);
-        fetchDataLogon.execute();
+        List<String> values1=new ArrayList<String>();
+        values1.add("MYJUR");
+        values1.add(userName);
+        values1.add(token);
+        FetchDataLogon fetchDataLIJUR = new FetchDataLogon(this, "MYJUR", values1);
+        fetchDataLIJUR.execute();
 
     }
-    @Override
-    public void getResponse1(List response){
+    public void getMyJury(List<Jury> lJury){
         NEW_CARD_COUNTER = 0;
         RecyclerView recycler = (RecyclerView)findViewById(R.id.juryList);
         recycler.setHasFixedSize(true);
@@ -52,11 +50,11 @@ public class JuryActivity extends MasterActivity {
         recycler.setLayoutManager(llm);
         juryAdapter = new JuryAdapter(this);
         recycler.setAdapter(juryAdapter);
-        loadAllJuryData();
+        loadAllJuryData(lJury);
     }
 
-    private void loadAllJuryData(){
-        List<Jury> lJury = ProjectsDatabase.getDatabase(this).juryDao().getAllJury();
+
+    private void loadAllJuryData(List<Jury> lJury){
         juryAdapter.setJury(lJury);
         juryAdapter.notifyDataSetChanged();
 

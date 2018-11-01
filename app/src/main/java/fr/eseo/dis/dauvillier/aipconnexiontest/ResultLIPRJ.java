@@ -74,7 +74,7 @@ public class ResultLIPRJ {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        activity.getResponse(responseValues);
+        activity.getResponse2(responseValues);
     }
 
 

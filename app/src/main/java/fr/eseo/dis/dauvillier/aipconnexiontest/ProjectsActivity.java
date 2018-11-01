@@ -30,24 +30,6 @@ public class ProjectsActivity extends  MasterActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projects);
         init();
-
-        List<String> values= new ArrayList<String>();
-            values.add("LIPRJ");
-            values.add(userName);
-            values.add(token);
-        FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"LIPRJ",values);
-        fetchDataLogon.execute();
-
-    }
-
-    private void loadAllProjetsData(){
-        List<Projets> lProjets =ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets();
-        projetAdapter.setProjets(lProjets);
-        projetAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void getResponse(List response){
         NEW_CARD_COUNTER = 0;
         RecyclerView recycler = (RecyclerView)findViewById(R.id.projectsList);
         recycler.setHasFixedSize(true);
@@ -57,8 +39,14 @@ public class ProjectsActivity extends  MasterActivity  {
         projetAdapter = new ProjetsAdapter(this);
         recycler.setAdapter(projetAdapter);
         loadAllProjetsData();
+
     }
 
+    private void loadAllProjetsData(){
+        List<Projets> lProjets =ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets();
+        projetAdapter.setProjets(lProjets);
+        projetAdapter.notifyDataSetChanged();
+    }
 
     public void clickProjetCard(Projets projet) {
         Intent intent = new Intent(this, ProjectDetailsActivity.class);

@@ -63,6 +63,13 @@ public class ResultFactory {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            case "MYJUR":
+                try {
+                    ResultMYJUR resultMYJUR= new ResultMYJUR(data,masterActivity);
+                    break;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             case "MYINF":
                     ResultMYINF resultMYINF= new ResultMYINF(data,masterActivity);

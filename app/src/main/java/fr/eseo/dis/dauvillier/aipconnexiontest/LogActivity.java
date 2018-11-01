@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -12,17 +13,11 @@ import java.util.List;
 
 public class LogActivity extends MasterActivity {
 
-    //   Button  button = findViewById(R.id.button);
-    //    TextView  textView = findViewById(R.id.textView);
+
     private static final String apiName = "LOGON";
-    public static final String PREFS_NAME = "MyPrefsFile";
 
     private Button btnConnexion;
-    private String q;
-    private String user;
-    private String password;
-    private Boolean verification;
-    private ResponseObject responseObject;
+
     private String forename;
     private String surname;
     private String userName;
@@ -46,51 +41,76 @@ public class LogActivity extends MasterActivity {
 
     public void onClickBtn(View view){
         EditText userValue = (EditText) findViewById(R.id.username);
-        user = userValue.getText().toString();
+        userName = userValue.getText().toString();
         EditText passwordValue = (EditText) findViewById(R.id.password);
-        password = passwordValue.getText().toString();
-
+        String password = passwordValue.getText().toString();
         List<String> values=new ArrayList<String>();
         values.add(apiName);
         values.add("aubinseb");
         values.add("Lsm5hs51s9ks");
+        if(isOnline()){
+            FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName, values);
+            fetchDataLogon.execute();
 
-       FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName, values);
-        fetchDataLogon.execute();
+        }else{
+            Toast.makeText(LogActivity.this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 
     @Override
     public void getResponse(List response){
-        if(response.get(0).equals("OK")){/*
-            Intent intent = new Intent(LogActivity.this, ProjectsActivity.class);
-            intent.putExtra("login","aubinseb");
-            intent.putExtra("token",(String)response.get(1));
+        if(response.get(0).equals("OK")){
 
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("name","sffzez");
-            editor.putString("surname","sdsdfef");
-            editor.putString("token",(String)response.get(1));*/
             List<String> values1=new ArrayList<String>();
 
             values1.add("MYINF");
             values1.add("aubinseb");
             token=(String)response.get(1);
             values1.add(token);
-            FetchDataLogon fetchDataLogon = new FetchDataLogon(this,"MYINF",values1);
-            fetchDataLogon.execute();
 
+
+            if(isOnline()){
+                FetchDataLogon fetchDataInfo = new FetchDataLogon(this,"MYINF",values1);
+                fetchDataInfo.execute();
+
+            }else{
+                Toast.makeText(LogActivity.this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
+            }
         }else{
-            System.out.println("BOLOSSSS");
-        }
-    }
 
+            Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+            btnConnexion.setEnabled(true);
+        }
+
+    }
     @Override
     public void getResponse1(List response){
         userName=(String)response.get(0);
         forename=(String)response.get(1);
         surname=(String)response.get(2);
         role=(String)response.get(3);
+        List<String> values1=new ArrayList<String>();
+
+
+        values1.add("LIPRJ");
+        values1.add(userName);
+        values1.add(token);
+        FetchDataLogon fetchDataPROJET = new FetchDataLogon(this, "LIPRJ", values1);
+        fetchDataPROJET.execute();
+
+    }
+    public void getResponse2(List response){
+
+        List<String> values1=new ArrayList<String>();
+        values1.add("LIJUR");
+        values1.add(userName);
+        values1.add(token);
+        FetchDataLogon fetchDataLIJUR = new FetchDataLogon(this, "LIJUR", values1);
+        fetchDataLIJUR.execute();
+    }
+    public void getResponse3(List response){
         Intent intent = new Intent(LogActivity.this, MainActivity.class);
         intent.putExtra("userName",userName);
         intent.putExtra("token",token);
@@ -98,6 +118,7 @@ public class LogActivity extends MasterActivity {
         intent.putExtra("surname",surname);
         intent.putExtra("role",role);
         startActivity(intent);
+
     }
 }
 

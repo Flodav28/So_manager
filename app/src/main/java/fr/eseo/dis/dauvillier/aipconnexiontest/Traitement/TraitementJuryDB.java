@@ -27,6 +27,7 @@ public class TraitementJuryDB {
 
 
 
+
     public TraitementJuryDB(Activity activity, JSONObject jsonEleve){
         this.juryDao= ProjectsDatabase.getDatabase(activity).juryDao();
         this.lJury =this.juryDao.getAllJury();
@@ -76,7 +77,7 @@ public class TraitementJuryDB {
              String dateString=   jsonJury.getString("date");
              Date date= convertStrToDate(dateString);
         jury = new Jury(
-                jsonJury.getInt("idJury")+1,
+                jsonJury.getInt("idJury"),
                 date
         );
 

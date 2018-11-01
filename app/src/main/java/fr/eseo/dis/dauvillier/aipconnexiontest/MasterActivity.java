@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import java.util.List;
 
+import fr.eseo.dis.dauvillier.aipconnexiontest.data.Jury;
 import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
 
 public class MasterActivity extends AppCompatActivity {
@@ -27,6 +28,10 @@ public class MasterActivity extends AppCompatActivity {
     public void getResponse2(List response){
     }
     public void getResponse3(List response){
+    }
+    public void getMyProjet(List<Projets> lProjet){
+    }
+    public void getMyJury(List<Jury> lJury){
     }
         protected boolean isOnline() {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -16,6 +16,7 @@ import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
 
 public class ResultMPRJ {
     private static final String  API="MPRJ";
+    List<Projets>  lMyProjet;
 
     public String data;
     public MasterActivity activity;
@@ -26,6 +27,7 @@ public class ResultMPRJ {
         this.activity=activity;
         this.jsonProjetMain= TraitementProjetDB.getJsonObject(data);
         this.traitementProjetDB=new TraitementProjetDB(activity,this.jsonProjetMain);
+          lMyProjet= new ArrayList<>();
         getResultRequest();
     }
 
@@ -35,7 +37,6 @@ public class ResultMPRJ {
         List<String> responseValues=new ArrayList<>();
         TraitementUtilisateurDB traitementUtilisateurDB;
         TraitementEleveDB traitementEleveDB;
-        List<Projets> lprojet ;
         try {
             if(this.traitementProjetDB.resultOk()){
                 JSONArray listeJsonProject = jsonProjetMain.getJSONArray("projects");
@@ -50,6 +51,7 @@ public class ResultMPRJ {
                     traitementUtilisateurDB.traitement(API);
                     traitementProjetDB = new TraitementProjetDB(activity,jsonProjet);
                     traitementProjetDB.traitement(API,traitementUtilisateurDB.getUtilisateur().getIdUser(),null);
+                    lMyProjet.add(traitementProjetDB.getProjet());
                     JSONArray listeEtudiant=null;
                     JSONObject jsonEtudiant=null;
                     listeEtudiant = jsonProjet.getJSONArray("students");
@@ -66,6 +68,8 @@ public class ResultMPRJ {
             e.printStackTrace();
         }
         Log.d("flodav2", String.valueOf(traitementProjetDB.getlProjet().size()));
-        activity.getResponse(responseValues);
+        activity.getMyProjet(lMyProjet);
     }
+
+
 }

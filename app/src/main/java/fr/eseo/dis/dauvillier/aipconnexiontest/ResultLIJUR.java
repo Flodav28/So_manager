@@ -45,7 +45,7 @@ public class ResultLIJUR {
                     traitementJuryDB= new TraitementJuryDB(activity,jsonJurys);
                     traitementJuryDB.traitement();
                     JSONArray listeJsonProject = jsonJurys.getJSONObject("info").getJSONArray("projects");
-                    JSONObject jsonProjet=null;
+                   /* JSONObject jsonProjet=null;
                     JSONObject jsonUtilisateur=null;
 
                     for(int i = 0; i < listeJsonProject.length()-1; i++) {
@@ -57,12 +57,12 @@ public class ResultLIJUR {
                         traitementProjetDB = new TraitementProjetDB(activity,jsonProjet);
                         traitementProjetDB.traitementLIJUR(API,traitementUtilisateurDB.getUtilisateur().getIdUser(),traitementJuryDB.getJury().getIdJury());
 
-                    }
+                    }*/
                 }
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        activity.getResponse1(responseValues);
+        activity.getResponse3(responseValues);
     }
 }

@@ -13,6 +13,7 @@ import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementEleveDB;
 import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementJuryDB;
 import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementProjetDB;
 import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementUtilisateurDB;
+import fr.eseo.dis.dauvillier.aipconnexiontest.data.Jury;
 import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
 
 public class ResultMYJUR {
@@ -22,9 +23,11 @@ public class ResultMYJUR {
     public MasterActivity activity;
     public JSONObject jsonJury;
     public TraitementJuryDB traitementJuryDB;
+    public List<Jury> lMyJury;
 
     public ResultMYJUR(String data,MasterActivity activity) throws JSONException {
         this.data=data;
+        this.lMyJury=new ArrayList<>();
         this.activity=activity;
         this.jsonJury= TraitementProjetDB.getJsonObject(data);
         this.traitementJuryDB=new TraitementJuryDB(activity,this.jsonJury);
@@ -48,6 +51,7 @@ public class ResultMYJUR {
                     jsonJurys=listeJury.getJSONObject(l);
                     traitementJuryDB= new TraitementJuryDB(activity,jsonJurys);
                     traitementJuryDB.traitement();
+                    lMyJury.add(traitementJuryDB.getJury());
                     JSONArray listeJsonProject = jsonJurys.getJSONObject("info").getJSONArray("projects");
                     JSONObject jsonProjet=null;
                     JSONObject jsonUtilisateur=null;
@@ -67,7 +71,7 @@ public class ResultMYJUR {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        activity.getResponse1(responseValues);
+        activity.getMyJury(lMyJury);
     }
 
 }
