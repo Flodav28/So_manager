@@ -39,8 +39,8 @@ public class JuryAdapter extends RecyclerView.Adapter<JuryAdapter.JuryViewHolder
     @Override
     public JuryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View juryView = LayoutInflater.from(parent.getContext()).inflate(R.layout.jury_card_layout, parent, false);
-        CardView juryCardView = (CardView) juryView;
-        juryCardView.setCardElevation(3 * JuryActivity.NEW_CARD_COUNTER++);
+ //       CardView juryCardView = (CardView) juryView;
+ //       juryCardView.setCardElevation(3 * JuryActivity.NEW_CARD_COUNTER++);
         return new JuryAdapter.JuryViewHolder(juryView);
     }
 
