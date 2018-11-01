@@ -2,12 +2,16 @@ package fr.eseo.dis.dauvillier.aipconnexiontest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.eseo.dis.dauvillier.aipconnexiontest.adapters.ProjetsAdapter;
+import fr.eseo.dis.dauvillier.aipconnexiontest.data.ProjectsDatabase;
 import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
+import fr.eseo.dis.dauvillier.aipconnexiontest.data.ProjetsDao;
 
 public class ProjectsActivity extends  MasterActivity  {
 
@@ -16,6 +20,7 @@ public class ProjectsActivity extends  MasterActivity  {
     public static int NEW_CARD_COUNTER;
 
     private ProjetsAdapter projetAdapter;
+    private ProjetsDao projetsDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,20 @@ public class ProjectsActivity extends  MasterActivity  {
             values.add(token);
         MainActivity.FetchDataLogon fetchDataLogon = new MainActivity.FetchDataLogon(this,"LIPRJ",values);
         fetchDataLogon.execute();
+        NEW_CARD_COUNTER = 0;
+        RecyclerView recycler = (RecyclerView)findViewById(R.id.projectsList);
+        recycler.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recycler.setLayoutManager(llm);
+        projetAdapter = new ProjetsAdapter(this);
+        recycler.setAdapter(projetAdapter);
+        loadAllProjetsData();
+    }
+
+    private void loadAllProjetsData(){
+        projetAdapter.setProjets(ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets());
+        projetAdapter.notifyDataSetChanged();
     }
 
     @Override
