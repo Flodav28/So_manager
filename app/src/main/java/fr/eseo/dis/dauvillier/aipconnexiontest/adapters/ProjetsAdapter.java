@@ -47,6 +47,7 @@ public class ProjetsAdapter extends RecyclerView.Adapter<ProjetsAdapter.ProjetsV
     @Override
     public void onBindViewHolder(@NonNull ProjetsViewHolder holder, final int position) {
         final Projets projet = projets.get(position);
+        //TODO
         holder.titreProjet.setText(projet.getTitle());
 
         holder.view.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +91,7 @@ public class ProjetsAdapter extends RecyclerView.Adapter<ProjetsAdapter.ProjetsV
         public ProjetsViewHolder(View view) {
             super(view);
             this.view = view;
-            titreProjet = view.findViewById(R.id.projet);
+            titreProjet = view.findViewById(R.id.projectsList);
         }
     }
 }

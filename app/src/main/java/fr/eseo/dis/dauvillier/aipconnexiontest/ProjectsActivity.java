@@ -46,6 +46,7 @@ public class ProjectsActivity extends  MasterActivity  {
         List<Projets> lProjets =ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets();
         projetAdapter.setProjets(lProjets);
         projetAdapter.notifyDataSetChanged();
+        ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets();
     }
 
     public void clickProjetCard(Projets projet) {

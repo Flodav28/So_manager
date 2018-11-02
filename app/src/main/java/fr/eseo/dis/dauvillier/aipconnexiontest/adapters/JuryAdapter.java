@@ -1,5 +1,6 @@
 package fr.eseo.dis.dauvillier.aipconnexiontest.adapters;
 
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import fr.eseo.dis.dauvillier.aipconnexiontest.JuryActivity;
@@ -29,6 +31,7 @@ public class JuryAdapter extends RecyclerView.Adapter<JuryAdapter.JuryViewHolder
 
     public void setJury(List<Jury> jury) {
         this.jury = jury;
+        System.out.println("jury : " + this.jury);
     }
 
     @Override

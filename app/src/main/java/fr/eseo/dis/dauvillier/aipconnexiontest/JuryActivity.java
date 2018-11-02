@@ -57,7 +57,6 @@ public class JuryActivity extends MasterActivity {
     private void loadAllJuryData(List<Jury> lJury){
         juryAdapter.setJury(lJury);
         juryAdapter.notifyDataSetChanged();
-
     }
 
     public void clickJuryCard(Jury jury) {
@@ -65,6 +64,7 @@ public class JuryActivity extends MasterActivity {
         intent.putExtra(JURY_EXTRA, jury);
         changeActivity(intent);
     }
+
     public void init(){
 
         Intent intent = getIntent();

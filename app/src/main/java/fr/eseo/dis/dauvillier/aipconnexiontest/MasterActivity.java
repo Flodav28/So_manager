@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import java.util.Date;
 import java.util.List;
 
 import fr.eseo.dis.dauvillier.aipconnexiontest.data.Jury;
@@ -33,15 +34,17 @@ public class MasterActivity extends AppCompatActivity {
     }
     public void getMyJury(List<Jury> lJury){
     }
-        protected boolean isOnline() {
-            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                return true;
-            } else {
-                return false;
-            }
+    public void getMyDatesJury(List<Date> lDatesJury){
+    }
+    protected boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
         }
+    }
 
     public void clickProjetCard(Projets projet) {
 

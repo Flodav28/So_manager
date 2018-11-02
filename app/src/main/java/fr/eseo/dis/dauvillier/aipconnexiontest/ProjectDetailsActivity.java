@@ -11,61 +11,43 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDetailsActivity extends AppCompatActivity {
+public class ProjectDetailsActivity extends MasterActivity {
 
-    /*private TextView titre;
-    private TextView genre;
-    private TextView annee;
-    private TextView realisateur;
-    private FilmRoleAdapter filmRoleAdapter;
-    private Film film;
-    private TextView resume;
+    private Project projet;
+    private String userName;
+    private String token;
+
+    private TextView titre;
+    private TextView description;
     private TextView note;
-    private Button btnDetails;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_film_details);
-        int clickedFilm = 0;
+        setContentView(R.layout.project_card_layout);
+        List<String> values=new ArrayList<String>();
+        values.add("NOTES");
+        values.add(userName);
+        values.add(token);
+        FetchDataLogon fetchDataNOTES = new FetchDataLogon(this, "NOTES", values);
+        fetchDataNOTES.execute();
         Intent intent = getIntent();
         Bundle data = intent.getExtras();
-        film = (Film) data.getParcelable(FilmographyActivity.FILM_EXTRA);
-        titre = findViewById(R.id.tv_details_titre);
-        genre = findViewById(R.id.tv_details_genre);
-        annee = findViewById(R.id.tv_details_annee);
-        resume = findViewById(R.id.tv_details_resume);
-        realisateur = findViewById(R.id.tv_details_realisateur);
+        projet = (Project) data.getParcelable(ProjectsActivity.PROJECT_EXTRA);
+        titre = findViewById(R.id.titre);
+        description = findViewById(R.id.description);
+        note = findViewById(R.id.notation);
 
-        note =  findViewById(R.id.tv_details_note);
-        btnDetails =  findViewById(R.id.button_details);
-        titre.setText(film.getTitre());
-        genre.setText(film.getGenre());
-        resume.setText(film.getResume());
-        btnDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FilmDetailsActivity.this, FilmNotationActivity.class);
-                intent.putExtra(FilmographyActivity.FILM_EXTRA, film);
-                startActivity(intent);
-            }
-        });
-        titre.setText(film.getTitre());
-        genre.setText(film.getGenre());
-        resume.setText(film.getResume());
-        RecyclerView recycler = findViewById(R.id.details_acteurs);
-        recycler.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler.setLayoutManager(llm);
-        filmRoleAdapter = new FilmRoleAdapter(this,clickedFilm);
-        recycler.setAdapter(filmRoleAdapter);
-        loadFilmDetails();
+        titre.setText(projet.getTitle());
+        description.setText(projet.getDescrip());
+        //note.setText(());
     }
 
     private void loadFilmDetails() {
+    }
     /*
     Pays pays = null;
     Artiste reali = null;

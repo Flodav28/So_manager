@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import fr.eseo.dis.dauvillier.aipconnexiontest.Traitement.TraitementEleveDB;
@@ -24,10 +25,12 @@ public class ResultMYJUR {
     public JSONObject jsonJury;
     public TraitementJuryDB traitementJuryDB;
     public List<Jury> lMyJury;
+    public List<Date> lDatesMyJury;
 
     public ResultMYJUR(String data,MasterActivity activity) throws JSONException {
         this.data=data;
         this.lMyJury=new ArrayList<>();
+        this.lDatesMyJury=new ArrayList<>();
         this.activity=activity;
         this.jsonJury= TraitementProjetDB.getJsonObject(data);
         this.traitementJuryDB=new TraitementJuryDB(activity,this.jsonJury);
