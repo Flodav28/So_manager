@@ -51,40 +51,32 @@ public class LogActivity extends MasterActivity {
         if(isOnline()){
             FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName, values);
             fetchDataLogon.execute();
-
         }else{
             Toast.makeText(LogActivity.this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
-
         }
-
     }
 
     @Override
     public void getResponse(List response){
         if(response.get(0).equals("OK")){
-
             List<String> values1=new ArrayList<String>();
-
             values1.add("MYINF");
             values1.add("aubinseb");
             token=(String)response.get(1);
             values1.add(token);
 
-
             if(isOnline()){
                 FetchDataLogon fetchDataInfo = new FetchDataLogon(this,"MYINF",values1);
                 fetchDataInfo.execute();
-
             }else{
                 Toast.makeText(LogActivity.this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
             }
         }else{
-
             Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
             btnConnexion.setEnabled(true);
         }
-
     }
+
     @Override
     public void getResponse1(List response){
         userName=(String)response.get(0);
@@ -93,16 +85,14 @@ public class LogActivity extends MasterActivity {
         role=(String)response.get(3);
         List<String> values1=new ArrayList<String>();
 
-
         values1.add("LIPRJ");
         values1.add(userName);
         values1.add(token);
         FetchDataLogon fetchDataPROJET = new FetchDataLogon(this, "LIPRJ", values1);
         fetchDataPROJET.execute();
-
     }
-    public void getResponse2(List response){
 
+    public void getResponse2(List response){
         List<String> values1=new ArrayList<String>();
         values1.add("LIJUR");
         values1.add(userName);
@@ -110,6 +100,7 @@ public class LogActivity extends MasterActivity {
         FetchDataLogon fetchDataLIJUR = new FetchDataLogon(this, "LIJUR", values1);
         fetchDataLIJUR.execute();
     }
+
     public void getResponse3(List response){
         Intent intent = new Intent(LogActivity.this, MainActivity.class);
         intent.putExtra("userName",userName);
@@ -118,7 +109,6 @@ public class LogActivity extends MasterActivity {
         intent.putExtra("surname",surname);
         intent.putExtra("role",role);
         startActivity(intent);
-
     }
 }
 

@@ -27,7 +27,7 @@ public class ProjectDetailsActivity extends MasterActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.project_card_layout);
+        setContentView(R.layout.activity_project_details);
         List<String> values=new ArrayList<String>();
         values.add("NOTES");
         values.add(userName);
@@ -39,7 +39,7 @@ public class ProjectDetailsActivity extends MasterActivity {
         projet = (Project) data.getParcelable(ProjectsActivity.PROJECT_EXTRA);
         titre = findViewById(R.id.titre);
         description = findViewById(R.id.description);
-        note = findViewById(R.id.notation);
+        //note = findViewById(R.id.notation);
 
         titre.setText(projet.getTitle());
         description.setText(projet.getDescrip());

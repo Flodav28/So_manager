@@ -42,15 +42,15 @@ public class JuryAdapter extends RecyclerView.Adapter<JuryAdapter.JuryViewHolder
     @Override
     public JuryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View juryView = LayoutInflater.from(parent.getContext()).inflate(R.layout.jury_card_layout, parent, false);
- //       CardView juryCardView = (CardView) juryView;
- //       juryCardView.setCardElevation(3 * JuryActivity.NEW_CARD_COUNTER++);
+        CardView juryCardView = (CardView) juryView;
+        juryCardView.setCardElevation(3 * JuryActivity.NEW_CARD_COUNTER++);
         return new JuryAdapter.JuryViewHolder(juryView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull JuryAdapter.JuryViewHolder holder, final int position) {
         final Jury jury = this.jury.get(position);
-        holder.jury.setText(String.valueOf(jury.getIdJury()));
+        holder.dateJury.setText(String.valueOf(jury.getDate()));
 
         holder.view.setOnClickListener(
                 new View.OnClickListener() {
@@ -89,12 +89,12 @@ public class JuryAdapter extends RecyclerView.Adapter<JuryAdapter.JuryViewHolder
 
         private final View view;
 
-        private final TextView jury;
+        private final TextView dateJury;
 
         public JuryViewHolder(View view) {
             super(view);
             this.view = view;
-            jury = view.findViewById(R.id.jury);
+            dateJury = view.findViewById(R.id.date);
         }
     }
 }

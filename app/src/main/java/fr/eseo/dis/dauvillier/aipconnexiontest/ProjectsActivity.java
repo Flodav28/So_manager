@@ -25,6 +25,7 @@ public class ProjectsActivity extends  MasterActivity  {
     private String userName;
     private String token;
     private String role;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,31 +40,29 @@ public class ProjectsActivity extends  MasterActivity  {
         projetAdapter = new ProjetsAdapter(this);
         recycler.setAdapter(projetAdapter);
         loadAllProjetsData();
-
     }
 
     private void loadAllProjetsData(){
-        List<Projets> lProjets =ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets();
+        List<Projets> lProjets = ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets();
         projetAdapter.setProjets(lProjets);
         projetAdapter.notifyDataSetChanged();
-        ProjectsDatabase.getDatabase(this).projetsDao().getAllProjets();
     }
 
     public void clickProjetCard(Projets projet) {
-        Intent intent = new Intent(this, ProjectDetailsActivity.class);
+        Intent intent = new Intent(ProjectsActivity.this, ProjectDetailsActivity.class);
         intent.putExtra(PROJECT_EXTRA, projet);
         changeActivity(intent);
     }
-    public void init(){
 
+    public void init(){
         Intent intent = getIntent();
         userName=intent.getStringExtra("userName");
         forename=intent.getStringExtra("forename");
         surname=intent.getStringExtra("surname");
         role=intent.getStringExtra("role");
         token = intent.getStringExtra("token");
-
     }
+
     public void changeActivity(Intent intent){
         intent.putExtra("userName",userName);
         intent.putExtra("token",token);
@@ -71,7 +70,6 @@ public class ProjectsActivity extends  MasterActivity  {
         intent.putExtra("surname",surname);
         intent.putExtra("role",role);
         startActivity(intent);
-
     }
 
 }

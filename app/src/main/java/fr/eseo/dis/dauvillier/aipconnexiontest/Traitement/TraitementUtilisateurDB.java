@@ -64,7 +64,7 @@ public class TraitementUtilisateurDB {
     }
 
     public boolean resultOk(){
-        boolean bool=false;
+        /*boolean bool=false;
         try {
             if( this.jsonUtilisateur.get("result").equals("OK")){
                 bool=true;
@@ -72,7 +72,8 @@ public class TraitementUtilisateurDB {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return bool;
+        return bool;*/
+        return true;
     }
 
     public void traitement(String APIname) throws JSONException {

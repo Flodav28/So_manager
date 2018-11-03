@@ -39,8 +39,8 @@ public class ProjetsAdapter extends RecyclerView.Adapter<ProjetsAdapter.ProjetsV
     @Override
     public ProjetsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View projetView = LayoutInflater.from(parent.getContext()).inflate(R.layout.project_card_layout, parent, false);
-        //CardView projetCardView = (CardView) projetView;
-        //projetCardView.setCardElevation(3 * ProjectsActivity.NEW_CARD_COUNTER++);
+        CardView projetCardView = (CardView) projetView;
+        projetCardView.setCardElevation(3 * ProjectsActivity.NEW_CARD_COUNTER++);
         return new ProjetsViewHolder(projetView);
     }
 
@@ -91,7 +91,7 @@ public class ProjetsAdapter extends RecyclerView.Adapter<ProjetsAdapter.ProjetsV
         public ProjetsViewHolder(View view) {
             super(view);
             this.view = view;
-            titreProjet = view.findViewById(R.id.projectsList);
+            titreProjet = view.findViewById(R.id.titre);
         }
     }
 }

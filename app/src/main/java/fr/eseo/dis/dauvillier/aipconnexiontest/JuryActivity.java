@@ -39,8 +39,8 @@ public class JuryActivity extends MasterActivity {
         values1.add(token);
         FetchDataLogon fetchDataLIJUR = new FetchDataLogon(this, "MYJUR", values1);
         fetchDataLIJUR.execute();
-
     }
+
     public void getMyJury(List<Jury> lJury){
         NEW_CARD_COUNTER = 0;
         RecyclerView recycler = (RecyclerView)findViewById(R.id.juryList);
@@ -53,28 +53,26 @@ public class JuryActivity extends MasterActivity {
         loadAllJuryData(lJury);
     }
 
-
     private void loadAllJuryData(List<Jury> lJury){
         juryAdapter.setJury(lJury);
         juryAdapter.notifyDataSetChanged();
     }
 
     public void clickJuryCard(Jury jury) {
-        Intent intent = new Intent(this, ProjectDetailsActivity.class);
+        Intent intent = new Intent(JuryActivity.this, JuryDetailsActivity.class);
         intent.putExtra(JURY_EXTRA, jury);
         changeActivity(intent);
     }
 
     public void init(){
-
         Intent intent = getIntent();
         userName=intent.getStringExtra("userName");
         forename=intent.getStringExtra("forename");
         surname=intent.getStringExtra("surname");
         role=intent.getStringExtra("role");
         token = intent.getStringExtra("token");
-
     }
+
     public void changeActivity(Intent intent){
         intent.putExtra("userName",userName);
         intent.putExtra("token",token);
@@ -82,6 +80,5 @@ public class JuryActivity extends MasterActivity {
         intent.putExtra("surname",surname);
         intent.putExtra("role",role);
         startActivity(intent);
-
     }
 }
