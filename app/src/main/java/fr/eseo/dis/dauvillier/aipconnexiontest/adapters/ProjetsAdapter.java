@@ -41,7 +41,7 @@ public class ProjetsAdapter extends RecyclerView.Adapter<ProjetsAdapter.ProjetsV
         View projetView = LayoutInflater.from(parent.getContext()).inflate(R.layout.project_card_layout, parent, false);
         CardView projetCardView = (CardView) projetView;
         projetCardView.setCardElevation(3 * ProjectsActivity.NEW_CARD_COUNTER++);
-        return new ProjetsViewHolder(projetView);
+        return new ProjetsAdapter.ProjetsViewHolder(projetView);
     }
 
     @Override

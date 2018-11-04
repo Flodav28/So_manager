@@ -14,7 +14,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDetailsActivity extends MasterActivity {
+public class ProjectDetailsActivity extends AppCompatActivity {
 
     private Project projet;
     private String userName;
@@ -28,12 +28,6 @@ public class ProjectDetailsActivity extends MasterActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_details);
-        List<String> values=new ArrayList<String>();
-        values.add("NOTES");
-        values.add(userName);
-        values.add(token);
-        FetchDataLogon fetchDataNOTES = new FetchDataLogon(this, "NOTES", values);
-        fetchDataNOTES.execute();
         Intent intent = getIntent();
         Bundle data = intent.getExtras();
         projet = (Project) data.getParcelable(ProjectsActivity.PROJECT_EXTRA);
@@ -44,6 +38,12 @@ public class ProjectDetailsActivity extends MasterActivity {
         titre.setText(projet.getTitle());
         description.setText(projet.getDescrip());
         //note.setText(());
+        /*List<String> values=new ArrayList<String>();
+        values.add("NOTES");
+        values.add(userName);
+        values.add(token);
+        FetchDataLogon fetchDataNOTES = new FetchDataLogon(this, "NOTES", values);
+        fetchDataNOTES.execute();*/
     }
 
     private void loadFilmDetails() {

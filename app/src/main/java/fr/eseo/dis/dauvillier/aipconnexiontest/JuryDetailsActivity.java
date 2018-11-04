@@ -33,7 +33,7 @@ public class JuryDetailsActivity extends AppCompatActivity {
         //nomProjet = findViewById(R.id.nom_projet);
 
         //btnDetails =  findViewById(R.id.button_details);
-        date.setText(jury.getDate().toString());
+        date.setText(String.valueOf(jury.getDate()));
         /*nomProjet.setText();
         btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
