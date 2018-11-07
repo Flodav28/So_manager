@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private String userName;
     private String token;
     private String role;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         surname=intent.getStringExtra("surname");
         role=intent.getStringExtra("role");
         token= intent.getStringExtra("token");
-
+        password=intent.getStringExtra("password");
     }
     public void changeActivity(Intent intent){
         intent.putExtra("userName",userName);
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("forename",forename);
         intent.putExtra("surname",surname);
         intent.putExtra("role",role);
+        intent.putExtra("password",password);
         startActivity(intent);
-
     }
 }

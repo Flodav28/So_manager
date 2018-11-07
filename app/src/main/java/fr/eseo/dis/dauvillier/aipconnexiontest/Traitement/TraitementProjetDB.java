@@ -18,7 +18,6 @@ public class TraitementProjetDB {
     private ProjetsDao projetsDao;
     private JSONObject jsonProjet;
     private Projets projet;
-    private List<Projets>lMyProjet;
 
     public TraitementProjetDB(Activity activity, JSONObject jsonEleve){
         this.projetsDao = ProjectsDatabase.getDatabase(activity).projetsDao();
@@ -29,14 +28,17 @@ public class TraitementProjetDB {
     public boolean existInDB(Projets projet){
         boolean isInDB=false;
         for (Projets projets :this.lProjets){
-            if (projets.getIdProject()==projet.getIdProject()){
-                isInDB=true;
-                projets=projet;
-                this.projetsDao.updateProjet(projets);
+            if (projets.getTitle().equals(projet.getTitle())) {
+                isInDB = true;
+                if (null == projets.getJury() && null != projet.getJury()){
+                    projets.setJury(projet.getJury());
+                    this.projetsDao.updateProjet(projets);
+                }
             }
         }
         return isInDB;
     }
+
 
     public void insertProjet(Projets projets){
         this.projetsDao.insertProjet(projets);
@@ -90,7 +92,7 @@ public class TraitementProjetDB {
 
         idJ=idJury;
         projet = new Projets(
-                jsonProjet.getInt("projectId")+1,
+                jsonProjet.getInt("projectId"),
                 jsonProjet.getString("title"),
                 null,
                 jsonProjet.getString("confid"),

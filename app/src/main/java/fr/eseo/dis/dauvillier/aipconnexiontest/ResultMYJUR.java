@@ -26,7 +26,7 @@ public class ResultMYJUR {
     public TraitementJuryDB traitementJuryDB;
     public List<Jury> lMyJury;
     public List<Date> lDatesMyJury;
-
+    String responseValues;
     public ResultMYJUR(String data,MasterActivity activity) throws JSONException {
         this.data=data;
         this.lMyJury=new ArrayList<>();
@@ -40,12 +40,13 @@ public class ResultMYJUR {
 
 
     public void getResultRequest()   {
-        List<String> responseValues=new ArrayList<>();
+         responseValues=null;
         TraitementUtilisateurDB traitementUtilisateurDB;
         TraitementProjetDB traitementProjetDB;
+
         try {
             if(this.traitementJuryDB.resultOk()){
-
+                responseValues=(String)this.jsonJury.get("result");
                 JSONArray listeJury =jsonJury.getJSONArray("juries");
                 JSONObject jsonJurys=null;
 
@@ -70,11 +71,13 @@ public class ResultMYJUR {
 
                     }
                 }
+            }else{
+                responseValues=(String)this.jsonJury.get("result");
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        activity.getMyJury(lMyJury);
+        activity.getMyJury(responseValues,lMyJury);
     }
 
 }

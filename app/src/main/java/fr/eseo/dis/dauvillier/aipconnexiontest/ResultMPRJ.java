@@ -34,11 +34,12 @@ public class ResultMPRJ {
 
 
     public void getResultRequest()   {
-        List<String> responseValues=new ArrayList<>();
+        String responseValues=null;
         TraitementUtilisateurDB traitementUtilisateurDB;
         TraitementEleveDB traitementEleveDB;
         try {
             if(this.traitementProjetDB.resultOk()){
+                responseValues=(String)this.jsonProjetMain.get("result");
                 JSONArray listeJsonProject = jsonProjetMain.getJSONArray("projects");
                 JSONObject jsonProjet=null;
                 JSONObject jsonUtilisateur=null;
@@ -61,14 +62,16 @@ public class ResultMPRJ {
                         traitementEleveDB.traitement(traitementProjetDB.getProjet().getIdProject());
 
                     }
-
                 }
+            }else{
+                responseValues=(String)this.jsonProjetMain.get("result");
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.d("flodav2", String.valueOf(traitementProjetDB.getlProjet().size()));
-        activity.getMyProjet(lMyProjet);
+        activity.getMyProjet(responseValues,lMyProjet);
     }
 
 

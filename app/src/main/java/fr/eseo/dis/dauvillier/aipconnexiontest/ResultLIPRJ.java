@@ -66,7 +66,6 @@ public class ResultLIPRJ {
                              jsonEtudiant = listeEtudiant.getJSONObject(j);
                             traitementEleveDB = new TraitementEleveDB(activity,jsonEtudiant);
                             traitementEleveDB.traitement(traitementProjetDB.getProjet().getIdProject());
-
                         }
 
                     }

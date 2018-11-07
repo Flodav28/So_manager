@@ -25,6 +25,7 @@ public class ProjectsActivity extends  MasterActivity  {
     private String userName;
     private String token;
     private String role;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,25 +51,28 @@ public class ProjectsActivity extends  MasterActivity  {
 
     public void clickProjetCard(Projets projet) {
         Intent intent = new Intent(ProjectsActivity.this, ProjectDetailsActivity.class);
+
         intent.putExtra(PROJECT_EXTRA, projet);
         changeActivity(intent);
     }
 
     public void init(){
+
         Intent intent = getIntent();
         userName=intent.getStringExtra("userName");
         forename=intent.getStringExtra("forename");
         surname=intent.getStringExtra("surname");
         role=intent.getStringExtra("role");
-        token = intent.getStringExtra("token");
+        token= intent.getStringExtra("token");
+        password=intent.getStringExtra("password");
     }
-
     public void changeActivity(Intent intent){
         intent.putExtra("userName",userName);
         intent.putExtra("token",token);
         intent.putExtra("forename",forename);
         intent.putExtra("surname",surname);
         intent.putExtra("role",role);
+        intent.putExtra("password",password);
         startActivity(intent);
     }
 

@@ -10,6 +10,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.List;
 
@@ -28,20 +29,9 @@ import static java.util.Arrays.asList;
                         childColumns = "jury"
                 )
         })
-public class Projets implements Parcelable {
+public class Projets implements Serializable {
 
-    public static final Parcelable.Creator<Projets> CREATOR = new Parcelable.Creator<Projets>(){
-        public Projets createFromParcel(Parcel source){
-            return new Projets(source);
-        }
-
-        public Projets[] newArray(int size){
-            return new Projets[size];
-        }
-    };
-
-    public static final List<String> projets = asList("projectId", "title", "descrip",
-            "poster", "supervisor", "confid", "students");
+    public static final List<String> projets = asList("projectId", "title", "descrip","poster", "supervisor", "confid", "students");
 
     @PrimaryKey
     @ColumnInfo(name = "id_project")

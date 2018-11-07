@@ -14,9 +14,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDetailsActivity extends AppCompatActivity {
+import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
 
-    private Project projet;
+public class ProjectDetailsActivity extends AppCompatActivity {
+    public static final String PROJECT_EXTRA = "project_extra";
+
+    private Projets projet;
     private String userName;
     private String token;
 
@@ -30,7 +33,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_project_details);
         Intent intent = getIntent();
         Bundle data = intent.getExtras();
-        projet = (Project) data.getParcelable(ProjectsActivity.PROJECT_EXTRA);
+        projet = (Projets) intent.getSerializableExtra(PROJECT_EXTRA);
         titre = findViewById(R.id.titre);
         description = findViewById(R.id.description);
         //note = findViewById(R.id.notation);
@@ -46,8 +49,6 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         fetchDataNOTES.execute();*/
     }
 
-    private void loadFilmDetails() {
-    }
     /*
     Pays pays = null;
     Artiste reali = null;

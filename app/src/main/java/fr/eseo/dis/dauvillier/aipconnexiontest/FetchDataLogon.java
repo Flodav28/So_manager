@@ -40,6 +40,16 @@ public class FetchDataLogon extends AsyncTask<Void, Void, Void> {
         this.url=urlFirst+addVariableName(this.valuesResponsesDico,values);
 
     }
+    public FetchDataLogon(String apiBackName,MasterActivity masterActivity,String apiName,List values) {
+        this.context = masterActivity.getApplicationContext();
+        this.values=values;
+        this.data="";
+        this.masterActivity=masterActivity;
+        this.apiName=apiName;
+        this.valuesResponsesDico=getVariableList(this.apiName);
+        this.url=urlFirst+addVariableName(this.valuesResponsesDico,values);
+
+    }
 /*    public FetchDataLogon(ProjectsActivity masterActivity,String apiName,List values) {
         this.context = masterActivity.getApplicationContext();
         this.values=values;

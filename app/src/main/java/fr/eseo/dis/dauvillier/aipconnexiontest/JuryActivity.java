@@ -27,30 +27,48 @@ public class JuryActivity extends MasterActivity {
     private String userName;
     private String token;
     private String role;
+    private String password;
+    List<String> values1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jury);
         init();
-        List<String> values1=new ArrayList<String>();
-        values1.add("MYJUR");
-        values1.add(userName);
-        values1.add(token);
-        FetchDataLogon fetchDataLIJUR = new FetchDataLogon(this, "MYJUR", values1);
-        fetchDataLIJUR.execute();
+        getResponse();
+    }
+   public void  getResponse(){
+       List<String> values1=new ArrayList<>();
+       values1.add("MYJUR");
+       values1.add(userName);
+       values1.add(token);
+       FetchDataLogon fetchDataLIJUR = new FetchDataLogon(this, "MYJUR", values1);
+       fetchDataLIJUR.execute();
     }
 
-    public void getMyJury(List<Jury> lJury){
-        NEW_CARD_COUNTER = 0;
-        RecyclerView recycler = (RecyclerView)findViewById(R.id.juryList);
-        recycler.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recycler.setLayoutManager(llm);
-        juryAdapter = new JuryAdapter(this);
-        recycler.setAdapter(juryAdapter);
-        loadAllJuryData(lJury);
+
+    public void getMyJury(String result,List<Jury> lJury){
+
+        if("OK".equals(result)) {
+            NEW_CARD_COUNTER = 0;
+            RecyclerView recycler = (RecyclerView) findViewById(R.id.juryList);
+            recycler.setHasFixedSize(true);
+            LinearLayoutManager llm = new LinearLayoutManager(this);
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            recycler.setLayoutManager(llm);
+            juryAdapter = new JuryAdapter(this);
+            recycler.setAdapter(juryAdapter);
+            loadAllJuryData(lJury);
+        }else{
+            values1 = new ArrayList<>();
+            values1.add("LOGON");
+            values1.add(userName);
+            values1.add(password);
+            FetchDataLogon fetchDataLIJUR = new FetchDataLogon(this, "LOGON", values1);
+            fetchDataLIJUR.execute();
+
+        }
     }
 
     private void loadAllJuryData(List<Jury> lJury){
@@ -60,7 +78,8 @@ public class JuryActivity extends MasterActivity {
 
     public void clickJuryCard(Jury jury) {
         Intent intent = new Intent(JuryActivity.this, JuryDetailsActivity.class);
-        intent.putExtra(JURY_EXTRA, jury);
+        intent.putExtra("idJury", jury.getIdJury());
+
         changeActivity(intent);
     }
 
@@ -70,7 +89,8 @@ public class JuryActivity extends MasterActivity {
         forename=intent.getStringExtra("forename");
         surname=intent.getStringExtra("surname");
         role=intent.getStringExtra("role");
-        token = intent.getStringExtra("token");
+        token= intent.getStringExtra("token");
+        password=intent.getStringExtra("password");
     }
 
     public void changeActivity(Intent intent){
@@ -79,6 +99,7 @@ public class JuryActivity extends MasterActivity {
         intent.putExtra("forename",forename);
         intent.putExtra("surname",surname);
         intent.putExtra("role",role);
+        intent.putExtra("password",password);
         startActivity(intent);
     }
 }

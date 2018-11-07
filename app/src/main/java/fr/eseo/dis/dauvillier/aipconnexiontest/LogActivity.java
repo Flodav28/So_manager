@@ -23,6 +23,7 @@ public class LogActivity extends MasterActivity {
     private String userName;
     private String token;
     private String role;
+    private String password;
     public List<String> list;
 
     @Override
@@ -48,6 +49,7 @@ public class LogActivity extends MasterActivity {
         values.add(apiName);
         values.add("aubinseb");
         values.add("Lsm5hs51s9ks");
+        password="Lsm5hs51s9ks";
         if(isOnline()){
             FetchDataLogon fetchDataLogon = new FetchDataLogon(this, apiName, values);
             fetchDataLogon.execute();
@@ -84,7 +86,6 @@ public class LogActivity extends MasterActivity {
         surname=(String)response.get(2);
         role=(String)response.get(3);
         List<String> values1=new ArrayList<String>();
-
         values1.add("LIPRJ");
         values1.add(userName);
         values1.add(token);
@@ -108,6 +109,7 @@ public class LogActivity extends MasterActivity {
         intent.putExtra("forename",forename);
         intent.putExtra("surname",surname);
         intent.putExtra("role",role);
+        intent.putExtra("password",password);
         startActivity(intent);
     }
 }

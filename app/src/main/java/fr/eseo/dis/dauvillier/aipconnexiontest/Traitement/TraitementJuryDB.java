@@ -88,7 +88,7 @@ public class TraitementJuryDB {
     private Date convertStrToDate(String date) {
         Date dateF = null;
         try {
-            dateF = new SimpleDateFormat("yy-MM-dd", Locale.ENGLISH).parse(date);
+            dateF = new SimpleDateFormat("yyyy-mm-dd").parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }

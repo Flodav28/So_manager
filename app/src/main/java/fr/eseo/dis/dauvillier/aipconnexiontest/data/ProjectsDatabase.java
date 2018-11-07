@@ -13,7 +13,7 @@ import android.content.Context;
         Projets.class,
         Utilisateur.class
         },
-        version=16
+        version=20
 )
 public abstract class ProjectsDatabase extends RoomDatabase {
 

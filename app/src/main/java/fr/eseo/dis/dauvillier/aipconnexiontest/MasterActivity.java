@@ -30,9 +30,9 @@ public class MasterActivity extends AppCompatActivity {
     }
     public void getResponse3(List response){
     }
-    public void getMyProjet(List<Projets> lProjet){
+    public void getMyProjet(String result,List<Projets> lProjet){
     }
-    public void getMyJury(List<Jury> lJury){
+    public void getMyJury(String result,List<Jury> lJury){
     }
     public void getMyDatesJury(List<Date> lDatesJury){
     }

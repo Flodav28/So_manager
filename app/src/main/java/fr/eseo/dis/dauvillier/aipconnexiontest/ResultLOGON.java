@@ -34,11 +34,9 @@ public class ResultLOGON {
             e.printStackTrace();
         }
     }
-    public void getResultRequest() throws JSONException {
+    public void getResultRequest( ) throws JSONException {
 
         List <String> responseValues=new ArrayList<>();
-
-
             //result est valide
             if(this.traitementUtilisateur.resultOk()){
                 //this.traitementUtilisateur.traitement(API);
@@ -48,8 +46,6 @@ public class ResultLOGON {
            }else{
                 responseValues.add((String)this.jsonUtilisateur.get("result"));
             }
-
-
         activity.getResponse(responseValues);
     }
 
