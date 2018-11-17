@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.eseo.dis.dauvillier.aipconnexiontest"
+    package="fr.eseo.dis.dauvillier.so_manager"
     >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,19 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LogActivity">
+        <activity android:name="fr.eseo.dis.dauvillier.so_manager.LogActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProjectsActivity" />
-        <activity android:name=".MasterActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".JuryActivity" />
-        <activity android:name=".ProjectDetailsActivity"></activity>
-        <activity android:name=".JuryDetailsActivity"></activity>
+        <activity android:name="fr.eseo.dis.dauvillier.so_manager.ProjectsActivity" />
+        <activity android:name="fr.eseo.dis.dauvillier.so_manager.MasterActivity" />
+        <activity android:name="fr.eseo.dis.dauvillier.so_manager.MainActivity" />
+        <activity android:name="fr.eseo.dis.dauvillier.so_manager.JuryActivity" />
+        <activity android:name="fr.eseo.dis.dauvillier.so_manager.ProjectDetailsActivity"></activity>
+        <activity android:name="fr.eseo.dis.dauvillier.so_manager.JuryDetailsActivity"></activity>
     </application>
 
 </manifest>
