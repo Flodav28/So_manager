@@ -18,6 +18,7 @@ import fr.eseo.dis.dauvillier.so_manager.data.Jury;
 import fr.eseo.dis.dauvillier.so_manager.data.JuryDao;
 import fr.eseo.dis.dauvillier.so_manager.data.ProjectsDatabase;
 import fr.eseo.dis.dauvillier.so_manager.data.Projets;
+import fr.eseo.dis.dauvillier.so_manager.data.ProjetsDao;
 
 public class JuryDetailsActivity extends MasterActivity {
 
@@ -41,21 +42,27 @@ public class JuryDetailsActivity extends MasterActivity {
     private ProjetsAdapter projetsAdapter;
 
     List<String> values1;
+    List<Projets> projetsList;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        projetsList = null;
         JuryDao juryDao = ProjectsDatabase.getDatabase(this).juryDao();
         setContentView(R.layout.activity_jury_details);
         int clickedJury = 0;
         Intent intent = getIntent();
         init();
-        loadJuryDetails();
+       // loadJuryDetails();
         int idJury=(int)intent.getIntExtra("idJury",0);
         jury=juryDao.getJuryById(idJury);
         date = findViewById(R.id.date);
         titre = findViewById(R.id.titre);
         date.setText(String.valueOf(jury.getDate()));
+        projetsList=getProjets(idJury);
+
 
         /*super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jury_details);
@@ -117,8 +124,15 @@ public class JuryDetailsActivity extends MasterActivity {
         intent.putExtra("password",password);
         startActivity(intent);
     }
+    public List<Projets > getProjets(int idJury){
+        List<Projets> lProjets;
+        lProjets = new ArrayList<>();
+        ProjetsDao projetsDao = ProjectsDatabase.getDatabase(this).projetsDao();
+        lProjets=projetsDao.getProjetsByIdJury(idJury);
+        return lProjets;
+    }
 
-    private void loadJuryDetails() {
+  /*  private void loadJuryDetails() {
         List<String> values=new ArrayList<String>();
         values.add("JYINF");
         values.add(userName);
@@ -126,8 +140,8 @@ public class JuryDetailsActivity extends MasterActivity {
         values.add(token);
         FetchDataLogon fetchDataJYINF= new FetchDataLogon(this, "JYINF", values);
         fetchDataJYINF.execute();
-        /*List<String> result=new ArrayList<String>();
-        result = new FetchDataLogon.getVariableList("JYINF");*/
+        List<String> result=new ArrayList<String>();
+        result = new FetchDataLogon.getVariableList("JYINF");
         System.out.println("RESULTAT : " + fetchDataJYINF.data);
-    }
+    }*/
 }

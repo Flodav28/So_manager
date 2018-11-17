@@ -24,6 +24,8 @@ public interface ProjetsDao {
 
     @Query("SELECT * FROM projets")
     List<Projets> getAllProjets();
+    @Query("SELECT * FROM projets Where jury= :idJury")
+    List<Projets> getProjetsByIdJury(int idJury);
 
     @Insert
     long insertProjet(Projets projet);

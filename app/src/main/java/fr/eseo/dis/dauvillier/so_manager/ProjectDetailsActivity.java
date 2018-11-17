@@ -1,4 +1,4 @@
-package fr.eseo.dis.dauvillier.aipconnexiontest;
+package fr.eseo.dis.dauvillier.so_manager;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -15,10 +15,13 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eseo.dis.dauvillier.aipconnexiontest.data.Eleves;
-import fr.eseo.dis.dauvillier.aipconnexiontest.data.ElevesDao;
-import fr.eseo.dis.dauvillier.aipconnexiontest.data.ProjectsDatabase;
-import fr.eseo.dis.dauvillier.aipconnexiontest.data.Projets;
+import fr.eseo.dis.dauvillier.so_manager.data.Eleves;
+import fr.eseo.dis.dauvillier.so_manager.data.ElevesDao;
+import fr.eseo.dis.dauvillier.so_manager.data.ProjectsDatabase;
+import fr.eseo.dis.dauvillier.so_manager.data.Projets;
+import fr.eseo.dis.dauvillier.so_manager.R;
+import fr.eseo.dis.dauvillier.so_manager.data.Eleves;
+import fr.eseo.dis.dauvillier.so_manager.data.Projets;
 
 public class ProjectDetailsActivity extends AppCompatActivity {
     public static final String PROJECT_EXTRA = "project_extra";
@@ -58,7 +61,7 @@ public class ProjectDetailsActivity extends AppCompatActivity {
     }
     public String getEtudiantNom(List<Eleves> elevesList,ListView listView){
         String nom=null;
-        TextView textView;
+        TextView textView = null;
         for(Eleves eleves :elevesList){
             textView.setText(eleves.getForename());
             listView.addFooterView(textView);
