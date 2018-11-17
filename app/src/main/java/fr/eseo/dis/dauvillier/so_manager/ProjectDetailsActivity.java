@@ -6,24 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 
-import fr.eseo.dis.dauvillier.so_manager.data.Eleves;
-import fr.eseo.dis.dauvillier.so_manager.data.ElevesDao;
+import fr.eseo.dis.dauvillier.so_manager.data.Notation;
 import fr.eseo.dis.dauvillier.so_manager.data.ProjectsDatabase;
 import fr.eseo.dis.dauvillier.so_manager.data.Projets;
-import fr.eseo.dis.dauvillier.so_manager.R;
-import fr.eseo.dis.dauvillier.so_manager.data.Eleves;
-import fr.eseo.dis.dauvillier.so_manager.data.Projets;
+import fr.eseo.dis.dauvillier.so_manager.data.Utilisateur;
 
 public class ProjectDetailsActivity extends AppCompatActivity {
+
     public static final String PROJECT_EXTRA = "project_extra";
 
     private Projets projet;
@@ -33,7 +27,6 @@ public class ProjectDetailsActivity extends AppCompatActivity {
     private TextView titre;
     private TextView description;
     private TextView note;
-    private ListView membre;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,13 +37,10 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         projet = (Projets) intent.getSerializableExtra(PROJECT_EXTRA);
         titre = findViewById(R.id.titre);
         description = findViewById(R.id.description);
-        membre = findViewById(R.id.listViewStudents);
+        note = findViewById(R.id.note);
 
-        List<Eleves>etudiantList=getEtudiantList(projet.getIdProject());
-        String membre=" " +getEtudiantNom(etudiantList,this.membre);
         titre.setText(projet.getTitle());
         description.setText(projet.getDescrip());
-
         //note.setText(());
         /*List<String> values=new ArrayList<String>();
         values.add("NOTES");
@@ -58,19 +48,35 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         values.add(token);
         FetchDataLogon fetchDataNOTES = new FetchDataLogon(this, "NOTES", values);
         fetchDataNOTES.execute();*/
+        loadDetailsProjet();
     }
-    public String getEtudiantNom(List<Eleves> elevesList,ListView listView){
-        String nom=null;
-        TextView textView = null;
-        for(Eleves eleves :elevesList){
-            textView.setText(eleves.getForename());
-            listView.addFooterView(textView);
+
+    private void loadDetailsProjet(){
+
+        List<Utilisateur> lEleves = ProjectsDatabase.getDatabase(this).utilisateurDao().getAllUtilisateurs();
+        //projetAdapter.setProjets(lProjets);
+        //projetAdapter.notifyDataSetChanged();
+
+        float avgNote;
+        int nbNotes;
+
+        List<Notation> notations = (List<Notation>)ProjectsDatabase.getDatabase(this).notationDao()
+                .getNoteById(projet.getJury());
+        if(notations == null || notations.size()==0){
+            avgNote = 0;
+            nbNotes = 0;
         }
-        return nom;
-    }
-    public List<Eleves>  getEtudiantList(int id){
-        ElevesDao elevesDao = ProjectsDatabase.getDatabase(this).elevesDao();
-        return elevesDao.getElevesDuProjet(id);
+        else{
+            avgNote = 0;
+            nbNotes = notations.size();
+            for(Notation notation : notations){
+                avgNote += notation.getNote();
+            }
+            avgNote = (float)avgNote/(float)nbNotes;
+        }
+        DecimalFormat df = new DecimalFormat("0.0");
+        note.setText(df.format(avgNote));
+
     }
 
     /*

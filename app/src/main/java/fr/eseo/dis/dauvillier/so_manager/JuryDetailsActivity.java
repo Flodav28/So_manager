@@ -65,7 +65,7 @@ public class JuryDetailsActivity extends MasterActivity {
 
 
         /*super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jury_details);
+        setContentView(R.layout.activity_juory_details);
         Intent intent = getIntent();
         Bundle data = intent.getExtras();
         jury = (Jury) data.getParcelable(JuryActivity.JURY_EXTRA);
