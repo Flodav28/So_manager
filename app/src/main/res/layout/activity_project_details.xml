@@ -9,41 +9,70 @@
     android:paddingTop="6dp"
     android:paddingBottom="6dp"
     tools:context=".ProjectsActivity">
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true">
+
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_margin="8dp"
             android:elevation="6dp">
+
             <LinearLayout
-                android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="4dp"
-                >
+                android:padding="4dp">
+
                 <TextView
                     android:id="@+id/titre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="36sp"
-                    android:padding="2dp"
-                    android:minLines="2"
                     android:maxLines="4"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:minLines="2"
+                    android:padding="2dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="36sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="24sp"
+                        android:layout_weight="1"
                         android:padding="2dp"
-                        android:layout_weight="1"/>
+                        android:textSize="24sp" />
                 </LinearLayout>
+
+              <!--  <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1">
+
+                    <TableRow android:layout_height="80dp">
+
+                        <TextView
+                            android:id="@+id/etudiantNom"
+                            android:padding="3dip"
+                            android:text="membre du projet" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                    </TableRow>
+
+
+                </TableLayout>-->
 
                 <!--<android.support.v7.widget.RecyclerView
                     android:id="@+id/liste_etu"
@@ -68,7 +97,48 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
+    </ScrollView>
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:scrollbars="none"
 
+        tools:ignore="MissingConstraints">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tableDetailsProject"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:stretchColumns="1"
+            >
+
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="0"
+                    android:fontFamily="sans-serif-black"
+                    android:padding="10dp"
+                    android:text="liste etudiant"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <ListView
+                    android:id="@+id/listViewStudents"
+                    android:layout_width="fill_parent"
+                    android:layout_height="190dp"
+                    android:isScrollContainer="true"
+                    />
+            </TableRow>
+
+        </TableLayout>
     </ScrollView>
 
 </RelativeLayout>
