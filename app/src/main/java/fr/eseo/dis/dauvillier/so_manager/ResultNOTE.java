@@ -55,12 +55,13 @@ public class ResultNOTE {
         return  new JSONObject(data);
     }
     public void getResultRequest()   {
-        List<String> responseValues=new ArrayList<>();
+        String responseValues=null;
         TraitementUtilisateurDB traitementUtilisateurDB;
         TraitementEleveDB traitementEleveDB;
         List<Projets> lprojet ;
         try {
             if(this.traitementNoteDB.resultOk()){
+                responseValues="OK";
                 JSONArray listeJsonNote = jsonNoteMain.getJSONArray("notes");
                 JSONObject jsonNote=null;
 
@@ -71,14 +72,14 @@ public class ResultNOTE {
                     traitementNoteDB.traitement();
                     traitementNoteDB.getlNotes();
 
-
-
                 }
+            }else{
+                responseValues="KO";
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        activity.getResponse2(responseValues);
+        activity.responseNote(responseValues);
     }
 
 

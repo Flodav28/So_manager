@@ -1,6 +1,7 @@
 package fr.eseo.dis.dauvillier.so_manager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,8 @@ import fr.eseo.dis.dauvillier.so_manager.data.ProjetsDao;
 
 public class JuryDetailsActivity extends MasterActivity {
 
+    private  static final String MY_PREFS_NAME="sessionUser";
+
     private Jury jury;
 
     private TextView date;
@@ -36,8 +39,9 @@ public class JuryDetailsActivity extends MasterActivity {
     private String surname;
     private String userName;
     private String token;
-    private String role;
+    private int role;
     private String password;
+    private int idUser;
 
     private ProjetsAdapter projetsAdapter;
 
@@ -58,10 +62,11 @@ public class JuryDetailsActivity extends MasterActivity {
        // loadJuryDetails();
         int idJury=(int)intent.getIntExtra("idJury",0);
         jury=juryDao.getJuryById(idJury);
+        projetsList=getProjets(idJury);
         date = findViewById(R.id.date);
         titre = findViewById(R.id.titre);
         date.setText(String.valueOf(jury.getDate()));
-        projetsList=getProjets(idJury);
+
 
 
         /*super.onCreate(savedInstanceState);
@@ -89,13 +94,14 @@ public class JuryDetailsActivity extends MasterActivity {
     }
 
     public void init(){
-        Intent intent = getIntent();
-        userName=intent.getStringExtra("userName");
-        forename=intent.getStringExtra("forename");
-        surname=intent.getStringExtra("surname");
-        role=intent.getStringExtra("role");
-        token= intent.getStringExtra("token");
-        password=intent.getStringExtra("password");
+        SharedPreferences editor = this.getSharedPreferences(MY_PREFS_NAME,0);
+        userName=editor.getString("userName",null);
+        forename=editor.getString("forename",null);
+        surname=editor.getString("surname",null);;
+        role=editor.getInt("role",1000);;
+        token= editor.getString("token",null);
+        password=editor.getString("password",null);
+        idUser=editor.getInt("idUSer",1000);
     }
 
     public void getMyProjects(String result){
@@ -116,12 +122,7 @@ public class JuryDetailsActivity extends MasterActivity {
     }
 
     public void changeActivity(Intent intent){
-        intent.putExtra("userName",userName);
-        intent.putExtra("token",token);
-        intent.putExtra("forename",forename);
-        intent.putExtra("surname",surname);
-        intent.putExtra("role",role);
-        intent.putExtra("password",password);
+
         startActivity(intent);
     }
     public List<Projets > getProjets(int idJury){

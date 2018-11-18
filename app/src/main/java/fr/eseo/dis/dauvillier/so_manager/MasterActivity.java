@@ -14,13 +14,14 @@ import fr.eseo.dis.dauvillier.so_manager.data.Projets;
 
 public class MasterActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
     }
 
-    public void getResponse(List response){
+    public void getResponse(List<Object> response){
     }
 
     public void getResponse1(List response){
@@ -32,6 +33,8 @@ public class MasterActivity extends AppCompatActivity {
     public void getMyProjet(String result,List<Projets> lProjet){
     }
     public void getMyJury(String result,List<Jury> lJury){
+    }
+    public void responseNote(String result){
     }
     public void getMyDatesJury(List<Date> lDatesJury){
     }

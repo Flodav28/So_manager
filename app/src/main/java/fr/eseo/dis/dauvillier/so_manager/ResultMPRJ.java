@@ -46,7 +46,6 @@ public class ResultMPRJ {
 
                 for(int i = 0; i < listeJsonProject.length()-1; i++) {
                     jsonProjet= listeJsonProject.getJSONObject(i);
-
                     jsonUtilisateur = jsonProjet.getJSONObject("supervisor");
                     traitementUtilisateurDB= new TraitementUtilisateurDB(activity,jsonUtilisateur);
                     traitementUtilisateurDB.traitement(API);
@@ -60,17 +59,14 @@ public class ResultMPRJ {
                         jsonEtudiant = listeEtudiant.getJSONObject(j);
                         traitementEleveDB = new TraitementEleveDB(activity,jsonEtudiant);
                         traitementEleveDB.traitement(traitementProjetDB.getProjet().getIdProject());
-
                     }
                 }
             }else{
                 responseValues=(String)this.jsonProjetMain.get("result");
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("flodav2", String.valueOf(traitementProjetDB.getlProjet().size()));
         activity.getMyProjet(responseValues,lMyProjet);
     }
 

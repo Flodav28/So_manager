@@ -1,5 +1,7 @@
 package fr.eseo.dis.dauvillier.so_manager;
 
+import android.content.SharedPreferences;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +16,7 @@ public class ResultLOGON {
     TraitementUtilisateurDB traitementUtilisateur;
     JSONObject jsonUtilisateur;
     private static final String  API="LOGON";
+    private  static final String MY_PREFS_NAME="sessionUser";
 
 
     public ResultLOGON(String data,MasterActivity activity)   {
@@ -28,18 +31,15 @@ public class ResultLOGON {
     }
     public void getResultRequest( ) throws JSONException {
 
-        List <String> responseValues=new ArrayList<>();
+        List <Object> responseValues=new ArrayList<>();
             //result est valide
             if(this.traitementUtilisateur.resultOk()){
                 //this.traitementUtilisateur.traitement(API);
                 responseValues.add((String)this.jsonUtilisateur.get("result"));
                 responseValues.add((String)this.jsonUtilisateur.get("token"));
-
            }else{
                 responseValues.add((String)this.jsonUtilisateur.get("result"));
             }
         activity.getResponse(responseValues);
     }
-
-
 }

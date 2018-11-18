@@ -42,6 +42,8 @@ public class ResultMYINF {
                 responseValues.add((String) role.get("surname"));
                 responseValues.add((String) role.get("forename"));
                 responseValues.add((String) role.getString("idRole"));
+                responseValues.add(String.valueOf(this.traitementUtilisateur.getUtilisateur().getIdUser()));
+
             } else {
                 responseValues.add((String) this.jsonUtilisateur.get("result"));
             }

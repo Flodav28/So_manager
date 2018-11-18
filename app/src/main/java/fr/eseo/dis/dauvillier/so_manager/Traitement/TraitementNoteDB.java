@@ -37,7 +37,6 @@ public class TraitementNoteDB {
         boolean isInDB=false;
 
         for (Eleves eleves :this.leleves){
-
             if (eleves.getSurname().equals(eleve.getSurname()) && eleves.getForename().equals(eleve.getForename())){
 
                 isInDB=true;

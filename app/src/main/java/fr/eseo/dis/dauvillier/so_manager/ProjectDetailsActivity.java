@@ -1,6 +1,7 @@
 package fr.eseo.dis.dauvillier.so_manager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,14 +10,20 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+import fr.eseo.dis.dauvillier.so_manager.adapters.JuryAdapter;
+import fr.eseo.dis.dauvillier.so_manager.data.Eleves;
+import fr.eseo.dis.dauvillier.so_manager.data.Jury;
 import fr.eseo.dis.dauvillier.so_manager.data.Notation;
 import fr.eseo.dis.dauvillier.so_manager.data.ProjectsDatabase;
 import fr.eseo.dis.dauvillier.so_manager.data.Projets;
 import fr.eseo.dis.dauvillier.so_manager.data.Utilisateur;
 
-public class ProjectDetailsActivity extends AppCompatActivity {
+public class ProjectDetailsActivity extends MasterActivity {
+
+    private  static final String MY_PREFS_NAME="sessionUser";
 
     public static final String PROJECT_EXTRA = "project_extra";
 
@@ -27,11 +34,18 @@ public class ProjectDetailsActivity extends AppCompatActivity {
     private TextView titre;
     private TextView description;
     private TextView note;
+    private String forename;
+    private String surname;
+    private int role;
+    private String password;
+    private int idUser;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project_details);
+        init();
         Intent intent = getIntent();
         Bundle data = intent.getExtras();
         projet = (Projets) intent.getSerializableExtra(PROJECT_EXTRA);
@@ -42,41 +56,68 @@ public class ProjectDetailsActivity extends AppCompatActivity {
         titre.setText(projet.getTitle());
         description.setText(projet.getDescrip());
         //note.setText(());
-        /*List<String> values=new ArrayList<String>();
+        getNote();
+
+    }
+    public void getNote(){
+        List<String> values=new ArrayList<String>();
         values.add("NOTES");
         values.add(userName);
+        values.add(String.valueOf(projet.getIdProject()));
         values.add(token);
         FetchDataLogon fetchDataNOTES = new FetchDataLogon(this, "NOTES", values);
-        fetchDataNOTES.execute();*/
-        loadDetailsProjet();
+        fetchDataNOTES.execute();
+
+    }
+    @Override
+    public void  getResponse(List<Object> response){
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putString("token",(String)response.get(1));
+        editor.apply();
+        getNote();
+    }
+    @Override
+    public void responseNote(String result){
+        if("OK".equals(result)) {
+            loadDetailsProjet();
+        }else{
+
+            List<String>values1 = new ArrayList<>();
+            values1.add("LOGON");
+            values1.add(userName);
+            values1.add(password);
+            FetchDataLogon fetchDataLIJUR = new FetchDataLogon(this, "LOGON", values1);
+            fetchDataLIJUR.execute();
+        }
     }
 
     private void loadDetailsProjet(){
 
-        List<Utilisateur> lEleves = ProjectsDatabase.getDatabase(this).utilisateurDao().getAllUtilisateurs();
-        //projetAdapter.setProjets(lProjets);
-        //projetAdapter.notifyDataSetChanged();
+        List<Eleves> lEleves = ProjectsDatabase.getDatabase(this).elevesDao().getElevesDuProjet(projet.getIdProject());
+        List<Object> listeUserNote= getListeNoteUser(lEleves);
 
-        float avgNote;
-        int nbNotes;
 
-        List<Notation> notations = (List<Notation>)ProjectsDatabase.getDatabase(this).notationDao()
-                .getNoteById(projet.getJury());
-        if(notations == null || notations.size()==0){
-            avgNote = 0;
-            nbNotes = 0;
+    }
+
+    public void init(){
+        SharedPreferences editor = this.getSharedPreferences(MY_PREFS_NAME,0);
+        userName=editor.getString("userName",null);
+        forename=editor.getString("forename",null);
+        surname=editor.getString("surname",null);;
+        role=editor.getInt("role",1000);;
+        token= editor.getString("token",null);
+        password=editor.getString("password",null);
+        idUser=editor.getInt("idUSer",1000);
+    }
+    public List<Object> getListeNoteUser(List<Eleves> lEleves){
+        List<Object> listeUserNote= new ArrayList<>();
+        Notation notation =null;
+        for (Eleves eleve : lEleves){
+            notation =(Notation) ProjectsDatabase.getDatabase(this).notationDao().getNoteEleve(eleve.getIdStudent());
+            listeUserNote.add(notation.getNote());
+            notation=null;
         }
-        else{
-            avgNote = 0;
-            nbNotes = notations.size();
-            for(Notation notation : notations){
-                avgNote += notation.getNote();
-            }
-            avgNote = (float)avgNote/(float)nbNotes;
-        }
-        DecimalFormat df = new DecimalFormat("0.0");
-        note.setText(df.format(avgNote));
-
+        return listeUserNote;
     }
 
     /*
