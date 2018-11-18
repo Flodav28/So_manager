@@ -1,5 +1,6 @@
 package fr.eseo.dis.dauvillier.so_manager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,21 +10,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import fr.eseo.dis.dauvillier.so_manager.adapters.JuryAdapter;
 import fr.eseo.dis.dauvillier.so_manager.adapters.ProjetsAdapter;
+import fr.eseo.dis.dauvillier.so_manager.adapters.TitreProjetAdapter;
+import fr.eseo.dis.dauvillier.so_manager.data.Eleves;
 import fr.eseo.dis.dauvillier.so_manager.data.Jury;
 import fr.eseo.dis.dauvillier.so_manager.data.JuryDao;
 import fr.eseo.dis.dauvillier.so_manager.data.ProjectsDatabase;
 import fr.eseo.dis.dauvillier.so_manager.data.Projets;
 import fr.eseo.dis.dauvillier.so_manager.data.ProjetsDao;
+import fr.eseo.dis.dauvillier.so_manager.data.Utilisateur;
+import fr.eseo.dis.dauvillier.so_manager.data.UtilisateurDao;
 
 public class JuryDetailsActivity extends MasterActivity {
 
     private  static final String MY_PREFS_NAME="sessionUser";
+    public static final String PROJECT_EXTRA = "project_extra";
 
     private Jury jury;
 
@@ -32,6 +39,7 @@ public class JuryDetailsActivity extends MasterActivity {
     private TextView titre;
 
     private Button btnDetails;
+    private Context context;
 
     public static int NEW_CARD_COUNTER;
 
@@ -43,12 +51,10 @@ public class JuryDetailsActivity extends MasterActivity {
     private String password;
     private int idUser;
 
-    private ProjetsAdapter projetsAdapter;
+    private TitreProjetAdapter titreProjetAdapter;
 
     List<String> values1;
     List<Projets> projetsList;
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,18 +62,23 @@ public class JuryDetailsActivity extends MasterActivity {
         projetsList = null;
         JuryDao juryDao = ProjectsDatabase.getDatabase(this).juryDao();
         setContentView(R.layout.activity_jury_details);
-        int clickedJury = 0;
         Intent intent = getIntent();
         init();
-       // loadJuryDetails();
         int idJury=(int)intent.getIntExtra("idJury",0);
         jury=juryDao.getJuryById(idJury);
         projetsList=getProjets(idJury);
         date = findViewById(R.id.date);
-        titre = findViewById(R.id.titre);
         date.setText(String.valueOf(jury.getDate()));
 
-
+        RecyclerView recycler = (RecyclerView) findViewById(R.id.projetsList);
+        recycler.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recycler.setLayoutManager(llm);
+        titreProjetAdapter = new TitreProjetAdapter(this);
+        recycler.setAdapter(titreProjetAdapter);
+        titreProjetAdapter.setProjets(projetsList);
+        titreProjetAdapter.notifyDataSetChanged();
 
         /*super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juory_details);
@@ -83,25 +94,30 @@ public class JuryDetailsActivity extends MasterActivity {
         //btnDetails =  findViewById(R.id.button_details);
 
         /*nomProjet.setText();*/
-        /*btnDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(JuryDetailsActivity.this, ProjectDetailsActivity.class);
-                //intent.putExtra(ProjectsActivity.PROJECT_EXTRA, film);
-                changeActivity(intent);
-            }
-        });*/
     }
 
-    public void init(){
-        SharedPreferences editor = this.getSharedPreferences(MY_PREFS_NAME,0);
-        userName=editor.getString("userName",null);
-        forename=editor.getString("forename",null);
-        surname=editor.getString("surname",null);;
-        role=editor.getInt("role",1000);;
-        token= editor.getString("token",null);
-        password=editor.getString("password",null);
-        idUser=editor.getInt("idUSer",1000);
+    public void clickProjectCard(Projets projet) {
+        Intent intent = new Intent(JuryDetailsActivity.this, ProjectDetailsActivity.class);
+        if(isAccessible( idUser, projet)){
+            intent.putExtra(PROJECT_EXTRA, projet);
+            intent.putExtra("id_projet", projet.getIdProject());
+            changeActivity(intent);
+        }else{
+            Toast.makeText(JuryDetailsActivity.this, "Ce projet est confidentiel", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void init() {
+        SharedPreferences editor = this.getSharedPreferences(MY_PREFS_NAME, 0);
+        userName = editor.getString("userName", null);
+        forename = editor.getString("forename", null);
+        surname = editor.getString("surname", null);
+        ;
+        role = editor.getInt("role", 1000);
+        ;
+        token = editor.getString("token", null);
+        password = editor.getString("password", null);
+        idUser = editor.getInt("idUSer", 1000);
     }
 
     public void getMyProjects(String result){
@@ -145,4 +161,16 @@ public class JuryDetailsActivity extends MasterActivity {
         result = new FetchDataLogon.getVariableList("JYINF");
         System.out.println("RESULTAT : " + fetchDataJYINF.data);
     }*/
+
+    public boolean isAccessible(int idSupervisor,Projets projet){
+        boolean bool=false;
+        Utilisateur utilisateur=null;
+        UtilisateurDao utilisateurDao = ProjectsDatabase.getDatabase(context).utilisateurDao();
+        utilisateur =utilisateurDao.getUtilisateurById(idSupervisor);
+        if(projet.getConfid().equals("0") || utilisateur.getIdUser()==idSupervisor){
+            bool=true;
+        }
+        return bool;
+
+    }
 }

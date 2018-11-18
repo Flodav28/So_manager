@@ -29,7 +29,6 @@ public class JuryAdapter extends RecyclerView.Adapter<JuryAdapter.JuryViewHolder
 
     public void setJury(List<Jury> jury) {
         this.jury = jury;
-        System.out.println("jury : " + this.jury);
     }
 
     @Override

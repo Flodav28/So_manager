@@ -64,9 +64,7 @@ public class ProjectsActivity extends  MasterActivity  {
         }else{
             Toast.makeText(ProjectsActivity.this, "Ce projet est confidentiel", Toast.LENGTH_SHORT).show();
         }
-
     }
-
 
     public void init(){
         SharedPreferences editor = this.getSharedPreferences(MY_PREFS_NAME,0);
@@ -85,14 +83,12 @@ public class ProjectsActivity extends  MasterActivity  {
         token= intent.getStringExtra("token");
         password=intent.getStringExtra("password");
         idUser=intent.getIntExtra("idUser",1000);*/
-
     }
+
     public void changeActivity(Intent intent){
-
-
         startActivity(intent);
-
     }
+
     public boolean isAccessible(int idSupervisor,Projets projet){
         boolean bool=false;
         Utilisateur utilisateur=null;
@@ -102,7 +98,5 @@ public class ProjectsActivity extends  MasterActivity  {
             bool=true;
         }
         return bool;
-
     }
-
 }

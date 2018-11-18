@@ -15,15 +15,17 @@ import java.util.List;
 
 import fr.eseo.dis.dauvillier.so_manager.adapters.JuryAdapter;
 import fr.eseo.dis.dauvillier.so_manager.data.Eleves;
+import fr.eseo.dis.dauvillier.so_manager.data.ElevesDao;
 import fr.eseo.dis.dauvillier.so_manager.data.Jury;
 import fr.eseo.dis.dauvillier.so_manager.data.Notation;
 import fr.eseo.dis.dauvillier.so_manager.data.ProjectsDatabase;
 import fr.eseo.dis.dauvillier.so_manager.data.Projets;
+import fr.eseo.dis.dauvillier.so_manager.data.ProjetsDao;
 import fr.eseo.dis.dauvillier.so_manager.data.Utilisateur;
 
 public class ProjectDetailsActivity extends MasterActivity {
 
-    private  static final String MY_PREFS_NAME="sessionUser";
+    private static final String MY_PREFS_NAME="sessionUser";
 
     public static final String PROJECT_EXTRA = "project_extra";
 
@@ -40,6 +42,7 @@ public class ProjectDetailsActivity extends MasterActivity {
     private String password;
     private int idUser;
 
+    List<Eleves> elevesList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,14 +54,23 @@ public class ProjectDetailsActivity extends MasterActivity {
         projet = (Projets) intent.getSerializableExtra(PROJECT_EXTRA);
         titre = findViewById(R.id.titre);
         description = findViewById(R.id.description);
+        //elevesList = getEleves((int)intent.getSerializableExtra("id_projet"));
         note = findViewById(R.id.note);
 
         titre.setText(projet.getTitle());
         description.setText(projet.getDescrip());
         //note.setText(());
         getNote();
-
     }
+
+    public List<Eleves > getEleves(int idProjet){
+        List<Eleves> lEleves;
+        lEleves = new ArrayList<>();
+        ElevesDao elevesDao = ProjectsDatabase.getDatabase(this).elevesDao();
+        lEleves=elevesDao.getElevesDuProjet(idProjet);
+        return lEleves;
+    }
+
     public void getNote(){
         List<String> values=new ArrayList<String>();
         values.add("NOTES");
@@ -67,8 +79,8 @@ public class ProjectDetailsActivity extends MasterActivity {
         values.add(token);
         FetchDataLogon fetchDataNOTES = new FetchDataLogon(this, "NOTES", values);
         fetchDataNOTES.execute();
-
     }
+
     @Override
     public void  getResponse(List<Object> response){
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
@@ -76,6 +88,7 @@ public class ProjectDetailsActivity extends MasterActivity {
         editor.apply();
         getNote();
     }
+
     @Override
     public void responseNote(String result){
         if("OK".equals(result)) {
@@ -92,11 +105,8 @@ public class ProjectDetailsActivity extends MasterActivity {
     }
 
     private void loadDetailsProjet(){
-
         List<Eleves> lEleves = ProjectsDatabase.getDatabase(this).elevesDao().getElevesDuProjet(projet.getIdProject());
         List<Object> listeUserNote= getListeNoteUser(lEleves);
-
-
     }
 
     public void init(){
@@ -109,6 +119,7 @@ public class ProjectDetailsActivity extends MasterActivity {
         password=editor.getString("password",null);
         idUser=editor.getInt("idUSer",1000);
     }
+
     public List<Object> getListeNoteUser(List<Eleves> lEleves){
         List<Object> listeUserNote= new ArrayList<>();
         Notation notation =null;
